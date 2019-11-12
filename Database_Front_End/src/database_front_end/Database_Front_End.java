@@ -20,7 +20,7 @@ public class Database_Front_End {
      * @param args the command line arguments
      */
     public static void main(String[] args){
-        addBook add = new addBook();
-        add.addbook();
+        addInvoice add = new addInvoice();
+        add.addinvoice();
         }
 }
