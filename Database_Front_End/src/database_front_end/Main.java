@@ -23,12 +23,14 @@ public class Main {
         try{
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
         DB db = mongoClient.getDB("Library");
-        DBCollection collection = db.getCollection("Members");
-      
-        DBCursor cursor = collection.find();
-	while(cursor.hasNext()) {
-	    System.out.println(cursor.next());
-	}
+        DBCollection collection = db.getCollection("Catagories");
+        
+        
+        
+        //DBCursor cursor = collection.find();
+	//while(cursor.hasNext()) {
+	//    System.out.println(cursor.next());
+	//}
         
         System.out.println("connected to database");
         }

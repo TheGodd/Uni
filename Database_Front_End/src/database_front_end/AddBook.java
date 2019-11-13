@@ -16,20 +16,15 @@ import com.mongodb.util.JSON;
  * @author golde
  */
 public class AddBook {
-    public static void addBook(){
+    public static void addBook(String catagory, String bookName, String author){
     try{
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
         DB db = mongoClient.getDB("Library");
         DBCollection collection = db.getCollection("Books");
-      
-        String bookName = "'Treasure Island'";
-        String catagoryID = "'5dca9b6949245f1bbcc79ff8'";
-        String Auther = "'Robert Louis Stevenson'";
-        
-        
+
         String json = "{'Book_Name' : " + bookName + ","
-                + "'Auther' : " + Auther + ","
-                + "'Catagory_ID' : " + catagoryID + "}";
+                + "'Author' : " + author + ","
+                + "'Catagory' : " + catagory + "}";
         DBObject dbOBject = (DBObject)JSON.parse(json);
         collection.insert(dbOBject);
         

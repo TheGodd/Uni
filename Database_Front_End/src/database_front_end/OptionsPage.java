@@ -31,6 +31,7 @@ public class OptionsPage extends javax.swing.JFrame {
         addInvoice = new javax.swing.JButton();
         btnAddOrder = new javax.swing.JButton();
         btnAddCatagory = new javax.swing.JButton();
+        btnAddBook = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,6 +65,13 @@ public class OptionsPage extends javax.swing.JFrame {
             }
         });
 
+        btnAddBook.setText("Add Book");
+        btnAddBook.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddBookMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,12 +79,15 @@ public class OptionsPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAddMembers)
-                    .addComponent(btnAddOrder))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAddCatagory)
-                    .addComponent(addInvoice))
+                    .addComponent(btnAddBook)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAddMembers)
+                            .addComponent(btnAddOrder))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAddCatagory)
+                            .addComponent(addInvoice))))
                 .addContainerGap(117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -86,14 +97,13 @@ public class OptionsPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddMembers)
                     .addComponent(addInvoice))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAddOrder))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(btnAddCatagory)))
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddOrder)
+                    .addComponent(btnAddCatagory))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAddBook)
+                .addContainerGap(144, Short.MAX_VALUE))
         );
 
         pack();
@@ -118,6 +128,11 @@ public class OptionsPage extends javax.swing.JFrame {
         AddCatagoryPage changeForm = new AddCatagoryPage();
         changeForm.setVisible(true);
     }//GEN-LAST:event_btnAddCatagoryMouseClicked
+
+    private void btnAddBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddBookMouseClicked
+        AddBookPage changeForm = new AddBookPage();
+        changeForm.setVisible(true);
+    }//GEN-LAST:event_btnAddBookMouseClicked
 
     
     
@@ -158,6 +173,7 @@ public class OptionsPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addInvoice;
+    private javax.swing.JButton btnAddBook;
     private javax.swing.JButton btnAddCatagory;
     private javax.swing.JButton btnAddMembers;
     private javax.swing.JButton btnAddOrder;
