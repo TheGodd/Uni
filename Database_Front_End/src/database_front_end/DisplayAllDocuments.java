@@ -7,28 +7,24 @@ package database_front_end;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
+import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
-import com.mongodb.util.JSON;
 
 /**
  *
  * @author golde
  */
-public class addCatagory {
-    public static void addcatagory(){
+public class DisplayAllDocuments {
+    public static void displayAllDocuments(String pickedcollection){
     try{
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
         DB db = mongoClient.getDB("Library");
-        DBCollection collection = db.getCollection("Catagories");
+        DBCollection collection = db.getCollection(pickedcollection);
       
-        String catagory = "'Adventure'";
-        
-        
-        String json = "{'Catagory' : " + catagory + "}";
-        DBObject dbOBject = (DBObject)JSON.parse(json);
-        collection.insert(dbOBject);
-        
+        DBCursor cursor = collection.find();
+	while(cursor.hasNext()) {
+	    System.out.println(cursor.next());
+	}
         
         System.out.println("connected to database");
         }

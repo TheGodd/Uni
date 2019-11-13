@@ -15,27 +15,21 @@ import com.mongodb.util.JSON;
  *
  * @author golde
  */
-public class addMember {
-    public static void addmember(){
-        try{
+public class AddBook {
+    public static void addBook(){
+    try{
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
         DB db = mongoClient.getDB("Library");
-        DBCollection collection = db.getCollection("Members");
+        DBCollection collection = db.getCollection("Books");
       
-        String address1 = "'25 Egerton Road'";
-        String city = "'Bristol'";
-        String postcode = "'BS7 8PL'";
-        String email = "'jacksonjames@funkymail.com'";
-        String firstname = "'Jackson'";
-        String secondname = "'James'";
+        String bookName = "'Treasure Island'";
+        String catagoryID = "'5dca9b6949245f1bbcc79ff8'";
+        String Auther = "'Robert Louis Stevenson'";
         
-        String json = "{'First_Name' : " + firstname + ","
-                + "'Second_Name' : " + secondname + ","
-                + "'Email' : " + email + ","
-                + "'Phone_Number' : '02749263748',"
-                + "'Address' : {'addressLine1' : " + address1 +"," +
-                               "'City' : " + city + "," +
-                               "Postcode' : " + postcode + "}" + "}";
+        
+        String json = "{'Book_Name' : " + bookName + ","
+                + "'Auther' : " + Auther + ","
+                + "'Catagory_ID' : " + catagoryID + "}";
         DBObject dbOBject = (DBObject)JSON.parse(json);
         collection.insert(dbOBject);
         
@@ -46,5 +40,5 @@ public class addMember {
         System.out.println(e);
         }
         System.out.println("Server is ready");
-}
+    }
 }

@@ -15,22 +15,17 @@ import com.mongodb.util.JSON;
  *
  * @author golde
  */
-public class addInvoice {
-    public static void addinvoice(){
+public class AddCatagory {
+    public static void addCatagory(){
     try{
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
         DB db = mongoClient.getDB("Library");
-        DBCollection collection = db.getCollection("Invoices");
+        DBCollection collection = db.getCollection("Catagories");
       
-        String OrderID = "'5dcaa11049245f504455c4a8'";
-        String Received_Date = "'12.11.2019'";
-        String Paid_Date = "'13.11.2019'";
+        String catagory = "'Adventure'";
         
         
-        String json = "{'OrderID' : " + OrderID + ","
-                + "'Reveived_Date' : " + Received_Date + ","
-                + "'Paid_date' : " + Paid_Date + "}";
-        
+        String json = "{'Catagory' : " + catagory + "}";
         DBObject dbOBject = (DBObject)JSON.parse(json);
         collection.insert(dbOBject);
         
@@ -42,5 +37,4 @@ public class addInvoice {
         }
         System.out.println("Server is ready");
     }
-    
 }

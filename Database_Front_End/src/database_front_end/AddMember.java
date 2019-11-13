@@ -15,19 +15,19 @@ import com.mongodb.util.JSON;
  *
  * @author golde
  */
-public class Write_Template {
-    public static void Write(String args) {
+public class AddMember {
+    public static void addMember(){
         try{
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
         DB db = mongoClient.getDB("Library");
         DBCollection collection = db.getCollection("Members");
       
-        String address1 = "'23 Egerton Road'";
+        String address1 = "'25 Egerton Road'";
         String city = "'Bristol'";
-        String postcode = "'BS7 8HN'";
-        String email = "'jasonjones@funkymail.com'";
-        String firstname = "'Jason'";
-        String secondname = "'Jones'";
+        String postcode = "'BS7 8PL'";
+        String email = "'jacksonjames@funkymail.com'";
+        String firstname = "'Jackson'";
+        String secondname = "'James'";
         
         String json = "{'First_Name' : " + firstname + ","
                 + "'Second_Name' : " + secondname + ","
@@ -46,5 +46,5 @@ public class Write_Template {
         System.out.println(e);
         }
         System.out.println("Server is ready");
-    }
+}
 }

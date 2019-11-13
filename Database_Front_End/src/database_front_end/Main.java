@@ -1,25 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package database_front_end;
 
+package database_front_end;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
-
+//import com.mongodb.DB;
+import com.mongodb.DBObject;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.util.JSON;
+//import org.bson.Document;
 /**
  *
- * @author golde
+ * @author george
  */
-public class displayAllDocuments {
-    public static void displayalldocuments(String pickedcollection){
-    try{
+public class Main {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args){
+        try{
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
         DB db = mongoClient.getDB("Library");
-        DBCollection collection = db.getCollection(pickedcollection);
+        DBCollection collection = db.getCollection("Members");
       
         DBCursor cursor = collection.find();
 	while(cursor.hasNext()) {
@@ -32,5 +36,5 @@ public class displayAllDocuments {
         System.out.println(e);
         }
         System.out.println("Server is ready");
-    }
+        }
 }
