@@ -16,26 +16,20 @@ import com.mongodb.util.JSON;
  * @author golde
  */
 public class AddMember {
-    public static void addMember(){
+    public static void addMember(String firstname, String secondname, String address1,
+            String city, String postcode, String email){
         try{
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
         DB db = mongoClient.getDB("Library");
         DBCollection collection = db.getCollection("Members");
-      
-        String address1 = "'25 Egerton Road'";
-        String city = "'Bristol'";
-        String postcode = "'BS7 8PL'";
-        String email = "'jacksonjames@funkymail.com'";
-        String firstname = "'Jackson'";
-        String secondname = "'James'";
         
-        String json = "{'First_Name' : " + firstname + ","
-                + "'Second_Name' : " + secondname + ","
-                + "'Email' : " + email + ","
+        String json = "{'First_Name' : " + "'" + firstname + "'" + ","
+                + "'Second_Name' : " + "'" + secondname + "'" + ","
+                + "'Email' : " + "'" + email + "'" + ","
                 + "'Phone_Number' : '02749263748',"
-                + "'Address' : {'addressLine1' : " + address1 +"," +
-                               "'City' : " + city + "," +
-                               "Postcode' : " + postcode + "}" + "}";
+                + "'Address' : {'addressLine1' : " + "'" + address1 + "'" +"," +
+                               "'City' : " + "'" + city + "'" + "," +
+                               "Postcode' : " + "'" + postcode + "'" + "}" + "}";
         DBObject dbOBject = (DBObject)JSON.parse(json);
         collection.insert(dbOBject);
         

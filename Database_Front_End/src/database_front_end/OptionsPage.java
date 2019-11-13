@@ -27,22 +27,100 @@ public class OptionsPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnAddMembers = new javax.swing.JButton();
+        addInvoice = new javax.swing.JButton();
+        btnAddOrder = new javax.swing.JButton();
+        btnAddCatagory = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnAddMembers.setText("Add Members");
+        btnAddMembers.setToolTipText("Add Members");
+        btnAddMembers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddMembersMouseClicked(evt);
+            }
+        });
+
+        addInvoice.setText("Add Invoice");
+        addInvoice.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addInvoiceMouseClicked(evt);
+            }
+        });
+
+        btnAddOrder.setText("Add Order");
+        btnAddOrder.setActionCommand("");
+        btnAddOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddOrderMouseClicked(evt);
+            }
+        });
+
+        btnAddCatagory.setText("Add Catagory");
+        btnAddCatagory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddCatagoryMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAddMembers)
+                    .addComponent(btnAddOrder))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAddCatagory)
+                    .addComponent(addInvoice))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(65, 65, 65)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddMembers)
+                    .addComponent(addInvoice))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAddOrder))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(btnAddCatagory)))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAddMembersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMembersMouseClicked
+        AddMemberPage changeForm = new AddMemberPage();
+        changeForm.setVisible(true);
+    }//GEN-LAST:event_btnAddMembersMouseClicked
+
+    private void addInvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addInvoiceMouseClicked
+        AddInvoicePage changeForm = new AddInvoicePage();
+        changeForm.setVisible(true);
+    }//GEN-LAST:event_addInvoiceMouseClicked
+
+    private void btnAddOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddOrderMouseClicked
+        AddOrderPage changeForm = new AddOrderPage();
+        changeForm.setVisible(true);
+    }//GEN-LAST:event_btnAddOrderMouseClicked
+
+    private void btnAddCatagoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddCatagoryMouseClicked
+        AddCatagoryPage changeForm = new AddCatagoryPage();
+        changeForm.setVisible(true);
+    }//GEN-LAST:event_btnAddCatagoryMouseClicked
+
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -79,5 +157,9 @@ public class OptionsPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addInvoice;
+    private javax.swing.JButton btnAddCatagory;
+    private javax.swing.JButton btnAddMembers;
+    private javax.swing.JButton btnAddOrder;
     // End of variables declaration//GEN-END:variables
 }

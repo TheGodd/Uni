@@ -16,16 +16,13 @@ import com.mongodb.util.JSON;
  * @author golde
  */
 public class AddCatagory {
-    public static void addCatagory(){
+    public static void addCatagory(String cat){
     try{
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
         DB db = mongoClient.getDB("Library");
         DBCollection collection = db.getCollection("Catagories");
-      
-        String catagory = "'Adventure'";
         
-        
-        String json = "{'Catagory' : " + catagory + "}";
+        String json = "{'Catagory' : " + "'" + cat + "'" + "}";
         DBObject dbOBject = (DBObject)JSON.parse(json);
         collection.insert(dbOBject);
         

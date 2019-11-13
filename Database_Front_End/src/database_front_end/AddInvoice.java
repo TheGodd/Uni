@@ -16,20 +16,15 @@ import com.mongodb.util.JSON;
  * @author golde
  */
 public class AddInvoice {
-    public static void addInvoice(){
+    public static void addInvoice(String orderID, String receivedDate, String paidDate){
     try{
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
         DB db = mongoClient.getDB("Library");
         DBCollection collection = db.getCollection("Invoices");
-      
-        String OrderID = "'5dcaa11049245f504455c4a8'";
-        String Received_Date = "'12.11.2019'";
-        String Paid_Date = "'13.11.2019'";
         
-        
-        String json = "{'OrderID' : " + OrderID + ","
-                + "'Reveived_Date' : " + Received_Date + ","
-                + "'Paid_date' : " + Paid_Date + "}";
+        String json = "{'OrderID' : " + "'" + orderID + "'" + ","
+                + "'Reveived_Date' : " + "'" + receivedDate + "'" + ","
+                + "'Paid_date' : " + "'" + paidDate + "'" +  "}";
         
         DBObject dbOBject = (DBObject)JSON.parse(json);
         collection.insert(dbOBject);
