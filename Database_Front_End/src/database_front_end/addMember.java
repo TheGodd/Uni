@@ -22,12 +22,12 @@ public class addMember {
         DB db = mongoClient.getDB("Library");
         DBCollection collection = db.getCollection("Members");
       
-        String address1 = "'23 Egerton Road'";
+        String address1 = "'25 Egerton Road'";
         String city = "'Bristol'";
-        String postcode = "'BS7 8HN'";
-        String email = "'jasonjones@funkymail.com'";
-        String firstname = "'Jason'";
-        String secondname = "'Jones'";
+        String postcode = "'BS7 8PL'";
+        String email = "'jacksonjames@funkymail.com'";
+        String firstname = "'Jackson'";
+        String secondname = "'James'";
         
         String json = "{'First_Name' : " + firstname + ","
                 + "'Second_Name' : " + secondname + ","
