@@ -98,7 +98,6 @@
     <Component class="javax.swing.JButton" name="btnAddInvoice">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add Invoice"/>
-        <Property name="actionCommand" type="java.lang.String" value="Add Invoice"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAddInvoiceMouseClicked"/>

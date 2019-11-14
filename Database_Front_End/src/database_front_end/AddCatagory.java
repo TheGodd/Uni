@@ -19,12 +19,17 @@ public class AddCatagory {
     public static void addCatagory(String cat){
     try{
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
+        //defines the ipaddress and the port to be used to connect
         DB db = mongoClient.getDB("Library");
+        //selects the database to be used
         DBCollection collection = db.getCollection("Catagories");
+        //chooses the collection to be used
         
         String json = "{'Catagory' : " + "'" + cat + "'" + "}";
+        //makes string called json and makes it equal to json format insertion
         DBObject dbOBject = (DBObject)JSON.parse(json);
         collection.insert(dbOBject);
+        //turns string json into a database object and inserts it as a document in collection
         
         
         System.out.println("connected to database");

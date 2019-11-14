@@ -112,26 +112,31 @@ public class OptionsPage extends javax.swing.JFrame {
     private void btnAddMembersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMembersMouseClicked
         AddMemberPage changeForm = new AddMemberPage();
         changeForm.setVisible(true);
+        //shows the add member page when the button is pressed
     }//GEN-LAST:event_btnAddMembersMouseClicked
 
     private void addInvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addInvoiceMouseClicked
         AddInvoicePage changeForm = new AddInvoicePage();
         changeForm.setVisible(true);
+        //shows the add invoice page when the button is pressed
     }//GEN-LAST:event_addInvoiceMouseClicked
 
     private void btnAddOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddOrderMouseClicked
         AddOrderPage changeForm = new AddOrderPage();
         changeForm.setVisible(true);
+        //shows the add order page when the button is pressed
     }//GEN-LAST:event_btnAddOrderMouseClicked
 
     private void btnAddCatagoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddCatagoryMouseClicked
         AddCatagoryPage changeForm = new AddCatagoryPage();
         changeForm.setVisible(true);
+        //shows the add catagory page when the button is pressed
     }//GEN-LAST:event_btnAddCatagoryMouseClicked
 
     private void btnAddBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddBookMouseClicked
         AddBookPage changeForm = new AddBookPage();
         changeForm.setVisible(true);
+        //shows the add book page when the button is pressed
     }//GEN-LAST:event_btnAddBookMouseClicked
 
     

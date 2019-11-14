@@ -20,8 +20,11 @@ public class AddMember {
             String city, String postcode, String email){
         try{
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
+        //defines the ipaddress and the port to be used to connect
         DB db = mongoClient.getDB("Library");
+        //selects the database to be used
         DBCollection collection = db.getCollection("Members");
+        //chooses the collection to be used
         
         String json = "{'First_Name' : " + "'" + firstname + "'" + ","
                 + "'Second_Name' : " + "'" + secondname + "'" + ","
@@ -30,8 +33,10 @@ public class AddMember {
                 + "'Address' : {'addressLine1' : " + "'" + address1 + "'" +"," +
                                "'City' : " + "'" + city + "'" + "," +
                                "Postcode' : " + "'" + postcode + "'" + "}" + "}";
+        //makes string called json and makes it equal to json format insertion
         DBObject dbOBject = (DBObject)JSON.parse(json);
         collection.insert(dbOBject);
+        //turns string json into a database object and inserts it as a document in collection
         
         
         System.out.println("connected to database");
