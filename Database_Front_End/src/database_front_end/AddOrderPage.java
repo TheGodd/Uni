@@ -9,6 +9,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
 /**
@@ -27,7 +28,7 @@ public class AddOrderPage extends javax.swing.JFrame {
         //defines the ipaddress and port to use to connect
         DB db = mongoClient.getDB("Library");
         //defines the database to use
-        DBCollection collection = db.getCollection("Catagories");
+        DBCollection collection = db.getCollection("Books");
         //defines the collection to use
         
         DBCursor cursor = collection.find(
@@ -40,12 +41,34 @@ public class AddOrderPage extends javax.swing.JFrame {
         //while loop that runs until it has all the values in the catagory field
         
         cursor = collection.find(
-        new BasicDBObject(), new BasicDBObject("Books", Boolean.TRUE)
+        new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
          );
         //uses a cursor to search the collection for all values in the catagory field
         while (cursor.hasNext()) {
-            bookName.addItem((String) cursor.next().get("Books"));
+            bookName.addItem((String) cursor.next().get("BookName"));
         }
+        cursor = collection.find(
+        new BasicDBObject(), new BasicDBObject("Author", Boolean.TRUE)
+         );
+        //uses a cursor to search the collection for all values in the catagory field
+        while (cursor.hasNext()) {
+            author.addItem((String) cursor.next().get("Author"));
+        }
+        
+        collection = db.getCollection("Members");
+        //defines the collection to use
+        
+        cursor = collection.find(
+        new BasicDBObject(), new BasicDBObject("FirstName", Boolean.TRUE)
+         );
+        DBCursor cursor2 = collection.find(
+        new BasicDBObject(), new BasicDBObject("SecondName", Boolean.TRUE)
+         );
+        
+        //uses a cursor to search the collection for all values in the catagory field
+        while (cursor.hasNext()) {
+            memberName.addItem((String) cursor.next().get("FirstName") + " " + cursor2.next().get("SecondName"));
+    }
     }
 
     @SuppressWarnings("unchecked")
@@ -87,7 +110,9 @@ public class AddOrderPage extends javax.swing.JFrame {
 
         jLabel5.setText("Catagory");
 
+        author.setMaximumRowCount(40);
         author.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select an Author" }));
+        author.setToolTipText("");
 
         jLabel6.setText("Author");
 
@@ -116,16 +141,20 @@ public class AddOrderPage extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel6))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dateTaken)
-                    .addComponent(dateDue)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(author, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bookName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(memberName, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(catagories, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(76, 76, 76))
+                            .addComponent(dateTaken)
+                            .addComponent(dateDue)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(author, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(bookName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(catagories, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(76, 76, 76))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(memberName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,6 +237,7 @@ public class AddOrderPage extends javax.swing.JFrame {
                 new AddOrderPage().setVisible(true);
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
