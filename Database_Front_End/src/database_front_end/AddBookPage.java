@@ -52,6 +52,7 @@ public class AddBookPage extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnAddBook = new javax.swing.JButton();
         catagories = new javax.swing.JComboBox<>();
+        btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +69,13 @@ public class AddBookPage extends javax.swing.JFrame {
             }
         });
 
+        btnClose.setText("Close");
+        btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCloseMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,12 +87,16 @@ public class AddBookPage extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAddBook)
-                    .addComponent(bookName)
-                    .addComponent(author)
-                    .addComponent(catagories, 0, 123, Short.MAX_VALUE))
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(bookName)
+                        .addComponent(author)
+                        .addComponent(catagories, 0, 123, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAddBook)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnClose)))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +114,9 @@ public class AddBookPage extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(catagories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
-                .addComponent(btnAddBook)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddBook)
+                    .addComponent(btnClose))
                 .addContainerGap(88, Short.MAX_VALUE))
         );
 
@@ -119,6 +133,10 @@ public class AddBookPage extends javax.swing.JFrame {
         
         //when the add button is pushed create three strings and use them to pass the values of the textboxes and combobox to addbook class
     }//GEN-LAST:event_btnAddBookMouseClicked
+
+    private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
+
+    }//GEN-LAST:event_btnCloseMouseClicked
 
     /**
      * @param args the command line arguments
@@ -160,6 +178,7 @@ public class AddBookPage extends javax.swing.JFrame {
     private javax.swing.JTextField author;
     private javax.swing.JTextField bookName;
     private javax.swing.JButton btnAddBook;
+    private javax.swing.JButton btnClose;
     private javax.swing.JComboBox<String> catagories;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
