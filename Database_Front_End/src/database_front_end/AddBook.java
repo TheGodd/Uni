@@ -25,9 +25,9 @@ public class AddBook {
         DBCollection collection = db.getCollection("Books");
         //chooses the collection to be used
 
-        String json = "{'Book_Name' : " + bookName + ","
-                + "'Author' : " + author + ","
-                + "'Catagory' : " + catagory + "}";
+        String json = "{'Book_Name' : " + "'" + bookName + "'" + ","
+                + "'Author' : " + "'" + author + "'" + ","
+                + "'Catagory' : " + "'" + catagory + "'" + "}";
         //makes string called json and makes it equal to json format insertion
         DBObject dbOBject = (DBObject)JSON.parse(json);
         collection.insert(dbOBject);

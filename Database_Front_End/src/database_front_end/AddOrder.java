@@ -16,7 +16,7 @@ import com.mongodb.util.JSON;
  * @author golde
  */
 public class AddOrder {
-    public static void addOrder(String bookID, String memberID, String dateTaken, String dateDue){
+    public static void addOrder(String bookName, String author, String catagory, String memName, String dateTaken, String dateDue){
      try{
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
         //defines the ipaddress and the port to be used to connect
@@ -25,10 +25,12 @@ public class AddOrder {
         DBCollection collection = db.getCollection("Orders");
         //chooses the collection to be used
                
-        String json = "{'BookID' : " + "'" + bookID + "'" + ","
-                + "'MemberID' : " + "'" + memberID + "'" + ","
-                + "'Date_Taken' : " + "'" + dateTaken + "'" + ","
-                + "'Date_Due' : "+ "'" + dateDue + "'" + "}";
+        String json = "{'BookName' : " + "'" + bookName + "'" + ","
+                + "'Author' : " + "'" + author + "'" + ","
+                + "'Catagory' : " + "'" + catagory + "'" + ","
+                + "'MemberName' : " + "'" + memName + "'" + ","
+                + "'DateTaken' : " + "'" + dateTaken + "'" + ","
+                + "'DateDue' : "+ "'" + dateDue + "'" + "}";
         //makes string called json and makes it equal to json format insertion
         
         DBObject dbOBject = (DBObject)JSON.parse(json);

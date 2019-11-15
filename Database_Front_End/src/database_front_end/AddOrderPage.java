@@ -5,6 +5,12 @@
  */
 package database_front_end;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.MongoClient;
+
 /**
  *
  * @author golde
@@ -17,14 +23,35 @@ public class AddOrderPage extends javax.swing.JFrame {
     public AddOrderPage() {
         initComponents();
         //calls the class that builds the form
+        MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
+        //defines the ipaddress and port to use to connect
+        DB db = mongoClient.getDB("Library");
+        //defines the database to use
+        DBCollection collection = db.getCollection("Catagories");
+        //defines the collection to use
+        
+        DBCursor cursor = collection.find(
+        new BasicDBObject(), new BasicDBObject("Catagory", Boolean.TRUE)
+         );
+        //uses a cursor to search the collection for all values in the catagory field
+        while (cursor.hasNext()) {
+            catagories.addItem((String) cursor.next().get("Catagory"));
+        }
+        //while loop that runs until it has all the values in the catagory field
+        
+        cursor = collection.find(
+        new BasicDBObject(), new BasicDBObject("Books", Boolean.TRUE)
+         );
+        //uses a cursor to search the collection for all values in the catagory field
+        while (cursor.hasNext()) {
+            bookName.addItem((String) cursor.next().get("Books"));
+        }
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bookID = new javax.swing.JTextField();
-        memberID = new javax.swing.JTextField();
         dateTaken = new javax.swing.JTextField();
         dateDue = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -32,12 +59,18 @@ public class AddOrderPage extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnAddOrder = new javax.swing.JButton();
+        catagories = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        author = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        bookName = new javax.swing.JComboBox<>();
+        memberName = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Book ID");
+        jLabel1.setText("Book Name");
 
-        jLabel2.setText("Member ID");
+        jLabel2.setText("Member name");
 
         jLabel3.setText("Date Taken");
 
@@ -50,65 +83,95 @@ public class AddOrderPage extends javax.swing.JFrame {
             }
         });
 
+        catagories.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a catagory" }));
+
+        jLabel5.setText("Catagory");
+
+        author.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select an Author" }));
+
+        jLabel6.setText("Author");
+
+        bookName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a book" }));
+
+        memberName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a member" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(dateTaken)
-                    .addComponent(memberID)
-                    .addComponent(bookID)
-                    .addComponent(dateDue, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(135, 135, 135)
+                .addGap(110, 110, 110)
                 .addComponent(btnAddOrder)
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addGap(207, 207, 207))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4))
+                        .addGap(14, 14, 14))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel6))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dateTaken)
+                    .addComponent(dateDue)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(author, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bookName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(memberName, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(catagories, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(76, 76, 76))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(bookName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(author, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(catagories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(memberName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bookID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(memberID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dateTaken, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateTaken, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dateDue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(btnAddOrder)
-                .addGap(42, 42, 42))
+                .addGap(54, 54, 54))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddOrderMouseClicked
-        String bookid = bookID.getText();
-        String memberid = memberID.getText();
+        String bookname =  (String) bookName.getSelectedItem();
+        String auth =  (String) author.getSelectedItem();
+        String cat =  (String) catagories.getSelectedItem();
+        String memname =  (String) memberName.getSelectedItem();
         String datetaken = dateTaken.getText();
         String datedue = dateDue.getText();
         
         AddOrder addorder = new AddOrder();
-        addorder.addOrder(bookid, memberid, datetaken, datedue);
+        addorder.addOrder(bookname, auth, cat, memname, datetaken, datedue);
         //when the add button is pushed create three strings and use them to pass the values of the textboxes to addmember class
     }//GEN-LAST:event_btnAddOrderMouseClicked
 
@@ -148,14 +211,18 @@ public class AddOrderPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField bookID;
+    private javax.swing.JComboBox<String> author;
+    private javax.swing.JComboBox<String> bookName;
     private javax.swing.JButton btnAddOrder;
+    private javax.swing.JComboBox<String> catagories;
     private javax.swing.JTextField dateDue;
     private javax.swing.JTextField dateTaken;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField memberID;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JComboBox<String> memberName;
     // End of variables declaration//GEN-END:variables
 }
