@@ -20,15 +20,18 @@ public class ReturnBookPage extends javax.swing.JFrame {
     /**
      * Creates new form ReturnBookPage
      */
-    public ReturnBookPage() {
-        initComponents();
-        
+    
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
         //defines the ipaddress and port to use to connect
         DB db = mongoClient.getDB("Library");
         //defines the database to use
         DBCollection collection = db.getCollection("Members");
         //defines the collection to use
+    
+    public ReturnBookPage() {
+        initComponents();
+        
+        
         
         DBCursor cursor = collection.find(
         new BasicDBObject(), new BasicDBObject("FirstName", Boolean.TRUE)
@@ -79,8 +82,18 @@ public class ReturnBookPage extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         memberName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose a member" }));
+        memberName.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                memberNameItemStateChanged(evt);
+            }
+        });
 
         bookName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose a book" }));
+        bookName.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                bookNameItemStateChanged(evt);
+            }
+        });
 
         jLabel1.setText("Member Name");
 
@@ -148,6 +161,43 @@ public class ReturnBookPage extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnReturnBookMouseClicked
+
+    private void memberNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_memberNameItemStateChanged
+        // TODO add your handling code here:
+        collection = db.getCollection("Orders");
+        //defines the collection to use
+        DBCursor cursor = collection.find(
+        new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
+         );
+        //uses a cursor to search the collection for all values in the catagory field
+        while (cursor.hasNext()) {
+            bookName.addItem((String) cursor.next().get("BookName"));
+        }
+        
+    }//GEN-LAST:event_memberNameItemStateChanged
+
+    private void bookNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bookNameItemStateChanged
+        // TODO add your handling code here:
+        collection = db.getCollection("Orders");
+        //defines the collection to use
+        DBCursor cursor = collection.find(
+        new BasicDBObject(), new BasicDBObject("MemberName", Boolean.TRUE)
+         );
+        
+        DBCursor cursor2 = collection.find(
+        new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
+         );
+        //uses a cursor to search the collection for all values in the catagory field
+        while (cursor.hasNext()) {
+            
+            if((String) cursor2.next().get("BookName") == bookName.toString() ){
+                System.out.println((String) cursor2.next().get("MemberName"));
+                
+                //&(String) cursor2.next().get("MemberName") != null 
+            }
+            //memberName.addItem((String) cursor.next().get("MemberName"));
+        }
+    }//GEN-LAST:event_bookNameItemStateChanged
 
     /**
      * @param args the command line arguments

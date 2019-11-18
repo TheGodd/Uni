@@ -25,15 +25,17 @@ public class AddOrderPage extends javax.swing.JFrame {
     /**
      * Creates new form AddOrderPage
      */
-    public AddOrderPage() {
-        initComponents();
-        //calls the class that builds the form
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
         //defines the ipaddress and port to use to connect
         DB db = mongoClient.getDB("Library");
         //defines the database to use
         DBCollection collection = db.getCollection("Catagories");
         //defines the collection to use
+    
+    public AddOrderPage() {
+        initComponents();
+        //calls the class that builds the form
+        
         
         DBCursor cursor = collection.find(
         new BasicDBObject(), new BasicDBObject("Catagory", Boolean.TRUE)
