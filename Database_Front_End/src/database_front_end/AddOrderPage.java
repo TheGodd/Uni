@@ -32,7 +32,7 @@ public class AddOrderPage extends javax.swing.JFrame {
         //defines the ipaddress and port to use to connect
         DB db = mongoClient.getDB("Library");
         //defines the database to use
-        DBCollection collection = db.getCollection("Books");
+        DBCollection collection = db.getCollection("Catagories");
         //defines the collection to use
         
         DBCursor cursor = collection.find(
@@ -43,6 +43,8 @@ public class AddOrderPage extends javax.swing.JFrame {
             catagories.addItem((String) cursor.next().get("Catagory"));
         }
         //while loop that runs until it has all the values in the catagory field
+        collection = db.getCollection("Books");
+        //defines the collection to use
         
         cursor = collection.find(
         new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
