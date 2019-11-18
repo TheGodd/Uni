@@ -1,0 +1,43 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.4" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:67:p, par l {comp btnAddBook:::p::p, seq {par l {comp btnAddMembers::l:p::p, comp btnAddOrder::l:p::p}, space s:::p, par l {comp btnAddCatagory:::p::p, comp addInvoice:::p::p}}}, space ::117:x}}"
+			"$verticalGroup": "par l {seq l {space :p:65:p, par b {comp btnAddMembers::b:p::p, comp addInvoice::b:p::p}, space u:::p, par b {comp btnAddOrder::b:p::p, comp btnAddCatagory::b:p::p}, space u:::p, comp btnAddBook:::p::p, space ::144:x}}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 3
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btnAddMembers"
+				"text": "Add Members"
+				"toolTipText": "Add Members"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnAddMembersMouseClicked", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "addInvoice"
+				"text": "Add Invoice"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "addInvoiceMouseClicked", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btnAddOrder"
+				"text": "Add Order"
+				"actionCommand": ""
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnAddOrderMouseClicked", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btnAddCatagory"
+				"text": "Add Catagory"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnAddCatagoryMouseClicked", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btnAddBook"
+				"text": "Add Book"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnAddBookMouseClicked", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}

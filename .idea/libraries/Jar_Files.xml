@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Jar Files">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Jar Files/mongodb-driver-3.11.2-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Jar Files/mongo-java-driver-3.5.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

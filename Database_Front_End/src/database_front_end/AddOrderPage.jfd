@@ -1,0 +1,93 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.4" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:110:p, comp btnAddOrder:::p::p, space :p:207:p}, seq {space :::p, par l {comp jLabel5::l:p::p, comp jLabel2::l:p::p, seq t {par l {comp jLabel3::t:p::p, comp jLabel4::l:p::p}, space :14:14:p}, comp jLabel1:::p::p, comp jLabel6:::p::p}, par l {seq {par l {comp dateTaken:::::x, comp dateDue:::::x, seq {space :3:3:p, par l {comp author:::::x, comp bookName:::::x, comp catagories:::::x}}}, space :p:76:p}, seq t {comp memberName:::::x, space :::p}}}}"
+			"$verticalGroup": "par l {seq {space :p:21:p, par b {comp jLabel1::b:p::p, comp bookName::b:p::p}, space u:::p, par b {comp author::b:p::p, comp jLabel6::b:p::p}, space :p:11:p, par b {comp catagories::b:p::p, comp jLabel5::b:p::p}, space u:::p, par b {comp jLabel2::b:p::p, comp memberName::b:p::p}, space u:::p, par t {comp dateTaken::t:p::p, comp jLabel3:::p::p}, space u:::p, par b {comp dateDue::b:p::p, comp jLabel4::b:p::p}, space ::27:x, comp btnAddOrder:::p::p, space :p:54:p}}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 3
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "dateTaken"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "dateDue"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel1"
+				"text": "Book Name"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel2"
+				"text": "Member name"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel3"
+				"text": "Date Taken"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel4"
+				"text": "Date Due"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btnAddOrder"
+				"text": "Add Order"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnAddOrderMouseClicked", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "catagories"
+				"model": new javax.swing.DefaultComboBoxModel {
+					selectedItem: "Select a catagory"
+					addElement( "Select a catagory" )
+				}
+				auxiliary() {
+					"JavaCodeGenerator.typeParameters": "String"
+				}
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel5"
+				"text": "Catagory"
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "author"
+				"maximumRowCount": 40
+				"model": new javax.swing.DefaultComboBoxModel {
+					selectedItem: "Select an Author"
+					addElement( "Select an Author" )
+				}
+				"toolTipText": ""
+				auxiliary() {
+					"JavaCodeGenerator.typeParameters": "String"
+				}
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "jLabel6"
+				"text": "Author"
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "bookName"
+				"model": new javax.swing.DefaultComboBoxModel {
+					selectedItem: "Select a book"
+					addElement( "Select a book" )
+				}
+				auxiliary() {
+					"JavaCodeGenerator.typeParameters": "String"
+				}
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "memberName"
+				"model": new javax.swing.DefaultComboBoxModel {
+					selectedItem: "Select a member"
+					addElement( "Select a member" )
+				}
+				auxiliary() {
+					"JavaCodeGenerator.typeParameters": "String"
+				}
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}
