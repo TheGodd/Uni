@@ -95,11 +95,7 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="bookName">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="1">
-            <StringItem index="0" value="Choose a book"/>
-          </StringArray>
-        </Property>
+        <Property name="model" preCode="&#xa;"/>
       </Properties>
       <Events>
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="bookNameItemStateChanged"/>

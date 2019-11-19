@@ -9,7 +9,10 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+import java.awt.event.ItemEvent;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,6 +23,10 @@ public class ReturnBookPage extends javax.swing.JFrame {
     /**
      * Creates new form ReturnBookPage
      */
+    ArrayList<String> names = new ArrayList<String>();
+    //ArrayList<String> d = new ArrayList<String>();
+    int n =0;
+    boolean optionSelected = false;
     
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
         //defines the ipaddress and port to use to connect
@@ -45,9 +52,16 @@ public class ReturnBookPage extends javax.swing.JFrame {
         
         //uses a cursor to search the collection for all values in the catagory field
         while (cursor.hasNext()) {
-            memberName.addItem((String) cursor.next().get("FirstName") + " " + cursor2.next().get("SecondName"));
+            String memname = (String) cursor.next().get("FirstName") + " " + cursor2.next().get("SecondName");
+            memberName.addItem(memname);
             //uses the cursor to populate the combo box memberName
+            names.add(memname); 
+            n++;
     }
+        //for(int i=0;i<n; i++){
+        //System.out.println(names.get(i));
+        //}
+        n=0;
         
         collection = db.getCollection("Books");
         //defines the collection to use
@@ -164,41 +178,99 @@ public class ReturnBookPage extends javax.swing.JFrame {
 
     private void memberNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_memberNameItemStateChanged
         // TODO add your handling code here:
-        collection = db.getCollection("Orders");
+        int n = 0;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+        //Do any operations you need to do when an item is selected.
+            if(optionSelected == false){
+                optionSelected = true;
+                
+    
+        
+            collection = db.getCollection("Orders");
         //defines the collection to use
-        DBCursor cursor = collection.find(
-        new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
-         );
+            DBCursor cursor = collection.find(
+            new BasicDBObject(), new BasicDBObject("MemberName", Boolean.TRUE)
+            );
+        
+            DBCursor cursor2 = collection.find(
+            new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
+            );
         //uses a cursor to search the collection for all values in the catagory field
-        while (cursor.hasNext()) {
-            bookName.addItem((String) cursor.next().get("BookName"));
+            String b = (String)evt.getItem();
+            while (cursor.hasNext()) {
+            
+            
+                String a = cursor.next().get("MemberName").toString();
+            
+                String c = cursor2.next().get("BookName").toString();
+            
+                System.out.println("This is the cursor book name: " + a );
+                System.out.println("This is the selected book name: " + b);
+            
+                if(b.equals(a)){
+                    System.out.println("found match");
+                    System.out.println(c);
+                    //d.add(c);
+                    n++;
+                    bookName.removeAllItems();
+                    for(int i =0; i<=n; i++){
+                        bookName.addItem(c);
+                }
+                    
+   
+                }
+            }
+            }   
         }
         
     }//GEN-LAST:event_memberNameItemStateChanged
 
     private void bookNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bookNameItemStateChanged
         // TODO add your handling code here:
-        collection = db.getCollection("Orders");
-        //defines the collection to use
-        DBCursor cursor = collection.find(
-        new BasicDBObject(), new BasicDBObject("MemberName", Boolean.TRUE)
-         );
+
+
+            if (evt.getStateChange() == ItemEvent.SELECTED) {
+        //Do any operations you need to do when an item is selected.
+                if(optionSelected == false){
+                    optionSelected = true;
+    
         
-        DBCursor cursor2 = collection.find(
-        new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
-         );
+            collection = db.getCollection("Orders");
+        //defines the collection to use
+            DBCursor cursor = collection.find(
+            new BasicDBObject(), new BasicDBObject("MemberName", Boolean.TRUE)
+            );
+        
+            DBCursor cursor2 = collection.find(
+            new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
+            );
         //uses a cursor to search the collection for all values in the catagory field
-        while (cursor.hasNext()) {
+            String b = (String)evt.getItem();
+            while (cursor2.hasNext()) {
             
-            if((String) cursor2.next().get("BookName") == bookName.toString() ){
-                System.out.println((String) cursor2.next().get("MemberName"));
+            
+                String a = cursor2.next().get("BookName").toString();
+            
+                String c = cursor.next().get("MemberName").toString();
+            
+                System.out.println("This is the cursor book name: " + a );
+                System.out.println("This is the selected book name: " + b);
+            
+                if(a.equals(b)){
+                    System.out.println("found match");
+                    System.out.println(c);
                 
-                //&(String) cursor2.next().get("MemberName") != null 
+                    memberName.removeAllItems();
+                    memberName.addItem(c);
+   
+                }
             }
-            //memberName.addItem((String) cursor.next().get("MemberName"));
+            }
         }
     }//GEN-LAST:event_bookNameItemStateChanged
 
+    
+    
     /**
      * @param args the command line arguments
      */
