@@ -11,6 +11,13 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import java.awt.event.ItemEvent;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import static java.util.concurrent.TimeUnit.DAYS;
+
+
 
 /**
  *
@@ -23,6 +30,7 @@ public class ReturnBookPage extends javax.swing.JFrame {
      */
     boolean optionSelected = false;
     boolean initialised = false;
+    int diff;
     
     MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
     //defines the ipaddress and port to use to connect
@@ -35,6 +43,20 @@ public class ReturnBookPage extends javax.swing.JFrame {
         initComponents();
         comboPopulation();
         
+        
+        
+    }
+    
+    public void setMoneyOwed(String date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        collection = db.getCollection("Orders");
+        
+        LocalDate today = LocalDate.now();
+        LocalDate dateDue = LocalDate.parse(date, formatter);
+        
+        diff = dateDue.until(today).getDays();
+        
+        lblMoneyOwed.setText("You Owe: £" + diff);
     }
 
     /**
@@ -54,6 +76,7 @@ public class ReturnBookPage extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnReturnBook = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
+        lblMoneyOwed = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,6 +112,9 @@ public class ReturnBookPage extends javax.swing.JFrame {
             }
         });
 
+        lblMoneyOwed.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        lblMoneyOwed.setText("You Owe:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,7 +133,10 @@ public class ReturnBookPage extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(memberName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(bookName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(dateReturned, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(dateReturned, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(lblMoneyOwed, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(72, 72, 72)
                         .addComponent(btnReturnBook)
@@ -130,11 +159,13 @@ public class ReturnBookPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dateReturned, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(44, 44, 44)
+                .addGap(16, 16, 16)
+                .addComponent(lblMoneyOwed)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReturnBook)
                     .addComponent(btnReset))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
@@ -147,9 +178,8 @@ public class ReturnBookPage extends javax.swing.JFrame {
         String returnDate = dateReturned.getText();
         
         ReturnBook returnbook = new ReturnBook();
-        returnbook.returnBook(selectedBookName, selectedMemberName, returnDate);
-        
-        
+        returnbook.returnBook(selectedBookName, selectedMemberName, returnDate, diff);
+
     }//GEN-LAST:event_btnReturnBookMouseClicked
 
     private void memberNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_memberNameItemStateChanged
@@ -168,16 +198,18 @@ public class ReturnBookPage extends javax.swing.JFrame {
             new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
             );
             //uses a cursor to search the collection for all values in the BookName field
+            DBCursor cursor3 = collection.find(
+            new BasicDBObject(), new BasicDBObject("DateDue", Boolean.TRUE)
+            );
             
             String b = (String)evt.getItem();
+            String date = null;
             
             while (cursor.hasNext()) {
             
                 String a = cursor.next().get("MemberName").toString();
                 String c = cursor2.next().get("BookName").toString();
-            
-                System.out.println("This is the cursor book name: " + a );
-                System.out.println("This is the selected book name: " + b);
+                date = cursor3.next().get("DateDue").toString();
             
                 if(b.equals(a) && optionSelected == false){
                     optionSelected = true;
@@ -187,17 +219,20 @@ public class ReturnBookPage extends javax.swing.JFrame {
                     bookName.addItem(c);
                     memberName.removeAllItems();
                     memberName.addItem(b);
+                    setMoneyOwed(date);
                         
                 }else if(b.equals(a)){
-                        bookName.addItem(c);
+                    bookName.addItem(c);
+                    setMoneyOwed(date);
                 }
-            } 
+            }
+            
+            
         }
         
     }//GEN-LAST:event_memberNameItemStateChanged
 
     private void bookNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bookNameItemStateChanged
-        // TODO add your handling code here:
 
         if (evt.getStateChange() == ItemEvent.SELECTED && initialised == true && optionSelected == false) {
         //Do any operations you need to do when an item is selected.
@@ -213,16 +248,20 @@ public class ReturnBookPage extends javax.swing.JFrame {
             new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
             );
             //uses a cursor to search the collection for all values in the catagory field
+            DBCursor cursor3 = collection.find(
+            new BasicDBObject(), new BasicDBObject("DateDue", Boolean.TRUE)
+            );
             String b = (String)evt.getItem();
+            String date = null;
+            
             bookName.removeAllItems();
             bookName.addItem(b);
+            
             while (cursor2.hasNext()) {
 
                 String a = cursor2.next().get("BookName").toString();
                 String c = cursor.next().get("MemberName").toString();
-            
-                System.out.println("This is the cursor book name: " + a );
-                System.out.println("This is the selected book name: " + b);
+                date = cursor3.next().get("DateDue").toString();
             
                 if(a.equals(b)){
                     System.out.println("found match");
@@ -230,9 +269,11 @@ public class ReturnBookPage extends javax.swing.JFrame {
                 
                     memberName.removeAllItems();
                     memberName.addItem(c);
+                    setMoneyOwed(date);
    
                 }
             }
+            
         }
     }//GEN-LAST:event_bookNameItemStateChanged
 
@@ -321,6 +362,7 @@ public class ReturnBookPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblMoneyOwed;
     private javax.swing.JComboBox<String> memberName;
     // End of variables declaration//GEN-END:variables
 }
