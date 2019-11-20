@@ -9,10 +9,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import java.awt.event.ItemEvent;
-import java.util.ArrayList;
 
 /**
  *
@@ -23,57 +21,20 @@ public class ReturnBookPage extends javax.swing.JFrame {
     /**
      * Creates new form ReturnBookPage
      */
-    ArrayList<String> names = new ArrayList<String>();
-    //ArrayList<String> d = new ArrayList<String>();
-    int n =0;
     boolean optionSelected = false;
+    boolean initialised = false;
     
-        MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
-        //defines the ipaddress and port to use to connect
-        DB db = mongoClient.getDB("Library");
-        //defines the database to use
-        DBCollection collection = db.getCollection("Members");
-        //defines the collection to use
+    MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
+    //defines the ipaddress and port to use to connect
+    DB db = mongoClient.getDB("Library");
+    //defines the database to use
+    DBCollection collection = db.getCollection("Members");
+    //defines the collection to use
     
     public ReturnBookPage() {
         initComponents();
+        comboPopulation();
         
-        
-        
-        DBCursor cursor = collection.find(
-        new BasicDBObject(), new BasicDBObject("FirstName", Boolean.TRUE)
-         );
-        collection = db.getCollection("Members");
-        //defines the collection to use
-        
-        DBCursor cursor2 = collection.find(
-        new BasicDBObject(), new BasicDBObject("SecondName", Boolean.TRUE)
-         );
-        
-        //uses a cursor to search the collection for all values in the catagory field
-        while (cursor.hasNext()) {
-            String memname = (String) cursor.next().get("FirstName") + " " + cursor2.next().get("SecondName");
-            memberName.addItem(memname);
-            //uses the cursor to populate the combo box memberName
-            names.add(memname); 
-            n++;
-    }
-        //for(int i=0;i<n; i++){
-        //System.out.println(names.get(i));
-        //}
-        n=0;
-        
-        collection = db.getCollection("Books");
-        //defines the collection to use
-        
-        cursor = collection.find(
-        new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
-         );
-        //uses a cursor to search the collection for all values in the catagory field
-        while (cursor.hasNext()) {
-            bookName.addItem((String) cursor.next().get("BookName"));
-        }
-        //uses the cursor to populate the combo box bookName
     }
 
     /**
@@ -92,17 +53,16 @@ public class ReturnBookPage extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnReturnBook = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        memberName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose a member" }));
         memberName.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 memberNameItemStateChanged(evt);
             }
         });
 
-        bookName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose a book" }));
         bookName.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 bookNameItemStateChanged(evt);
@@ -119,6 +79,13 @@ public class ReturnBookPage extends javax.swing.JFrame {
         btnReturnBook.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnReturnBookMouseClicked(evt);
+            }
+        });
+
+        btnReset.setText("Reset");
+        btnReset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetMouseClicked(evt);
             }
         });
 
@@ -142,8 +109,10 @@ public class ReturnBookPage extends javax.swing.JFrame {
                                     .addComponent(bookName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(dateReturned, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(btnReturnBook)))
+                        .addGap(72, 72, 72)
+                        .addComponent(btnReturnBook)
+                        .addGap(51, 51, 51)
+                        .addComponent(btnReset)))
                 .addContainerGap(91, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -162,7 +131,9 @@ public class ReturnBookPage extends javax.swing.JFrame {
                     .addComponent(dateReturned, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(44, 44, 44)
-                .addComponent(btnReturnBook)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReturnBook)
+                    .addComponent(btnReset))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
@@ -171,23 +142,24 @@ public class ReturnBookPage extends javax.swing.JFrame {
 
     private void btnReturnBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnBookMouseClicked
         // TODO add your handling code here:
+        String selectedBookName = (String) bookName.getSelectedItem();
+        String selectedMemberName = (String) memberName.getSelectedItem();
+        String returnDate = dateReturned.getText();
         
+        ReturnBook returnbook = new ReturnBook();
+        returnbook.returnBook(selectedBookName, selectedMemberName, returnDate);
         
         
     }//GEN-LAST:event_btnReturnBookMouseClicked
 
     private void memberNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_memberNameItemStateChanged
         // TODO add your handling code here:
-        int n = 0;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
+
+        if (evt.getStateChange() == ItemEvent.SELECTED && optionSelected == false && initialised == true) {
         //Do any operations you need to do when an item is selected.
-            if(optionSelected == false){
-                optionSelected = true;
-                
-    
-        
+
             collection = db.getCollection("Orders");
-        //defines the collection to use
+            //defines the collection to use
             DBCursor cursor = collection.find(
             new BasicDBObject(), new BasicDBObject("MemberName", Boolean.TRUE)
             );
@@ -195,32 +167,31 @@ public class ReturnBookPage extends javax.swing.JFrame {
             DBCursor cursor2 = collection.find(
             new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
             );
-        //uses a cursor to search the collection for all values in the catagory field
+            //uses a cursor to search the collection for all values in the BookName field
+            
             String b = (String)evt.getItem();
+            
             while (cursor.hasNext()) {
             
-            
                 String a = cursor.next().get("MemberName").toString();
-            
                 String c = cursor2.next().get("BookName").toString();
             
                 System.out.println("This is the cursor book name: " + a );
                 System.out.println("This is the selected book name: " + b);
             
-                if(b.equals(a)){
+                if(b.equals(a) && optionSelected == false){
+                    optionSelected = true;
                     System.out.println("found match");
                     System.out.println(c);
-                    //d.add(c);
-                    n++;
                     bookName.removeAllItems();
-                    for(int i =0; i<=n; i++){
+                    bookName.addItem(c);
+                    memberName.removeAllItems();
+                    memberName.addItem(b);
+                        
+                }else if(b.equals(a)){
                         bookName.addItem(c);
                 }
-                    
-   
-                }
-            }
-            }   
+            } 
         }
         
     }//GEN-LAST:event_memberNameItemStateChanged
@@ -228,15 +199,12 @@ public class ReturnBookPage extends javax.swing.JFrame {
     private void bookNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bookNameItemStateChanged
         // TODO add your handling code here:
 
-
-            if (evt.getStateChange() == ItemEvent.SELECTED) {
+        if (evt.getStateChange() == ItemEvent.SELECTED && initialised == true && optionSelected == false) {
         //Do any operations you need to do when an item is selected.
-                if(optionSelected == false){
-                    optionSelected = true;
-    
-        
+            optionSelected = true;
+
             collection = db.getCollection("Orders");
-        //defines the collection to use
+            //defines the collection to use
             DBCursor cursor = collection.find(
             new BasicDBObject(), new BasicDBObject("MemberName", Boolean.TRUE)
             );
@@ -244,13 +212,13 @@ public class ReturnBookPage extends javax.swing.JFrame {
             DBCursor cursor2 = collection.find(
             new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
             );
-        //uses a cursor to search the collection for all values in the catagory field
+            //uses a cursor to search the collection for all values in the catagory field
             String b = (String)evt.getItem();
+            bookName.removeAllItems();
+            bookName.addItem(b);
             while (cursor2.hasNext()) {
-            
-            
+
                 String a = cursor2.next().get("BookName").toString();
-            
                 String c = cursor.next().get("MemberName").toString();
             
                 System.out.println("This is the cursor book name: " + a );
@@ -265,15 +233,54 @@ public class ReturnBookPage extends javax.swing.JFrame {
    
                 }
             }
-            }
         }
     }//GEN-LAST:event_bookNameItemStateChanged
 
+    private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
+        // TODO add your handling code here:
+        memberName.removeAllItems();
+        bookName.removeAllItems();
+        comboPopulation();
+        
+    }//GEN-LAST:event_btnResetMouseClicked
+
+    private void comboPopulation(){
+        initialised = false;
+        memberName.addItem("Choose a member");
+        bookName.addItem("Choose a book");
+        
+        collection = db.getCollection("Members");
+        
+        DBCursor cursor = collection.find(
+        new BasicDBObject(), new BasicDBObject("FirstName", Boolean.TRUE)
+         );
+        
+        DBCursor cursor2 = collection.find(
+        new BasicDBObject(), new BasicDBObject("SecondName", Boolean.TRUE)
+         );
+        
+        //uses a cursor to search the collection for all values in the catagory field
+        while (cursor.hasNext()) {
+            String memname = (String) cursor.next().get("FirstName") + " " + cursor2.next().get("SecondName");
+            memberName.addItem(memname);
+
+    }
+
+        collection = db.getCollection("Books");
+        //defines the collection to use
+        
+        cursor = collection.find(
+        new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
+         );
+        //uses a cursor to search the collection for all values in the catagory field
+        while (cursor.hasNext()) {
+            bookName.addItem((String) cursor.next().get("BookName"));
+        }
+        //uses the cursor to populate the combo box bookName
+        initialised = true;
+        optionSelected = false;
+    }
     
-    
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -308,6 +315,7 @@ public class ReturnBookPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> bookName;
+    private javax.swing.JButton btnReset;
     private javax.swing.JButton btnReturnBook;
     private javax.swing.JTextField dateReturned;
     private javax.swing.JLabel jLabel1;
