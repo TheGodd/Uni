@@ -24,48 +24,59 @@ public class ReturnBook {
             DBCollection collection = db.getCollection("Orders");
             //defines the collection to use
             
-            DBCursor cursor = collection.find(
+            DBCursor cursBookName = collection.find(
             new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
             );
-        
-            DBCursor cursor2 = collection.find(
+            //uses a cursor to search the collection for all values in the BookName field
+            DBCursor cursMemName = collection.find(
             new BasicDBObject(), new BasicDBObject("MemberName", Boolean.TRUE)
             );
-            //uses a cursor to search the collection for all values in the BookName field
-            DBCursor cursor3 = collection.find(
+            //uses a cursor to search the collection for all values in the MemberName field
+            DBCursor cursID = collection.find(
             new BasicDBObject(), new BasicDBObject("_id", Boolean.TRUE)
             );
             //uses a cursor to search the collection for all values in the BookName field
             String id = "0";
+            //makes string id and sets it equal to 0
             
-            while (cursor.hasNext()) {
-
-                String a = cursor.next().get("BookName").toString();
-                String b = cursor2.next().get("MemberName").toString();
-                String c = cursor3.next().get("_id").toString();
+            while (cursBookName.hasNext()) {
+            //while cursBookName has the next value in the database do this
+                String bookNameField = cursBookName.next().get("BookName").toString();
+                //creates string bookNameField and makes it equal to the field BookName
+                String memNameField = cursMemName.next().get("MemberName").toString();
+                //creates string memNameField and makes it equal to the field MemberName
+                String idField = cursID.next().get("_id").toString();
+                //creates string cursID and makes it equal to the field _id
                 
-                if(a.equals(selectedBookName) && b.equals(selectedMemberName)){
-                    id = c;
+                if(bookNameField.equals(selectedBookName) && memNameField.equals(selectedMemberName)){
+                //if bookNameField is equal to selectedBookName and memNameField is equal to selectedMemberName
+                    id = idField;
+                    //makes id equal to idField
                 }
-                
             }
-            
             collection = db.getCollection("Invoices");
-            cursor = collection.find(
+            //makes collection its looking at be Invoices
+            cursBookName = collection.find(
             new BasicDBObject(), new BasicDBObject("OrderID", Boolean.TRUE)
             );
-            while (cursor.hasNext()) {
-                String d = cursor.next().get("OrderID").toString();
-                if(id.equals(d)){
+            //uses a cursor to search the collection for all values in the BookName field
+            while (cursBookName.hasNext()) {
+            //while cursBookName has the next value in the database do this
+                String orderIdField = cursBookName.next().get("OrderID").toString();
+                //creates String orderIdField and makes it equal to the OrderId Field
+                if(id.equals(orderIdField)){
+                //if id is equal to orderIdField then do this
                     BasicDBObject newDocument = new BasicDBObject();
                     BasicDBObject searchQuery = new BasicDBObject().append("OrderID", id);
+                    //Search for rhe document with the OrderID with the value id
                     
                     newDocument.append("$set", new BasicDBObject().append("PaidDate", returnDate));
                     collection.update(searchQuery, newDocument);
+                    //change the found document to have a PaidDate of returnDate
                     
                     newDocument.append("$set", new BasicDBObject().append("AmmountPaid", diff));
                     collection.update(searchQuery, newDocument);
-                    
+                    //change the found document to have the AmmountPaid of diff
                 }
                 
             }

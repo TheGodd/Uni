@@ -12,13 +12,8 @@ import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import java.awt.event.ItemEvent;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import static java.util.concurrent.TimeUnit.DAYS;
-
-
-
+import java.util.ArrayList;
 /**
  *
  * @author golde
@@ -29,34 +24,38 @@ public class ReturnBookPage extends javax.swing.JFrame {
      * Creates new form ReturnBookPage
      */
     boolean optionSelected = false;
+    //creates boolean optionSelected
     boolean initialised = false;
+    //creates boolean initialised
     int diff;
+    //creates int diff
     
     MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
     //defines the ipaddress and port to use to connect
     DB db = mongoClient.getDB("Library");
     //defines the database to use
-    DBCollection collection = db.getCollection("Members");
+    DBCollection collection = db.getCollection("Orders");
     //defines the collection to use
     
     public ReturnBookPage() {
         initComponents();
         comboPopulation();
-        
-        
-        
+        //calls the class that creates the form then the one that populates the comboboxes
     }
-    
     public void setMoneyOwed(String date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        collection = db.getCollection("Orders");
+        //creates a format for the date to be layed out
         
         LocalDate today = LocalDate.now();
         LocalDate dateDue = LocalDate.parse(date, formatter);
+        //creates two localdate variables, sets today to the current date 
+        //and sets date due to the date passed from one of tw oclasses
         
         diff = dateDue.until(today).getDays();
+        //sets diff to the difference between today and the date due
         
         lblMoneyOwed.setText("You Owe: £" + diff);
+        //sets the label lblMoneyOwed to "you owe: diff"
     }
 
     /**
@@ -174,11 +173,15 @@ public class ReturnBookPage extends javax.swing.JFrame {
     private void btnReturnBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnBookMouseClicked
         // TODO add your handling code here:
         String selectedBookName = (String) bookName.getSelectedItem();
+        //creates and sets the string selectedBookName to the option selected in the bookName combo box
         String selectedMemberName = (String) memberName.getSelectedItem();
+        //creates and sets string selectedMemberName to the selected item in the memberName combobox
         String returnDate = dateReturned.getText();
+        //creates and sets String returnDate to the value of the dateReturned text box
         
         ReturnBook returnbook = new ReturnBook();
         returnbook.returnBook(selectedBookName, selectedMemberName, returnDate, diff);
+        //calls the recurn book method in the return book class passing through selectedBookName, selectedMemberName, returnDate, diff
 
     }//GEN-LAST:event_btnReturnBookMouseClicked
 
@@ -188,42 +191,54 @@ public class ReturnBookPage extends javax.swing.JFrame {
         if (evt.getStateChange() == ItemEvent.SELECTED && optionSelected == false && initialised == true) {
         //Do any operations you need to do when an item is selected.
 
-            collection = db.getCollection("Orders");
-            //defines the collection to use
-            DBCursor cursor = collection.find(
+            DBCursor cursMemName = collection.find(
             new BasicDBObject(), new BasicDBObject("MemberName", Boolean.TRUE)
             );
-        
-            DBCursor cursor2 = collection.find(
+            //uses a cursor to search the collection for all values in the MemberName field
+            DBCursor cursBookName = collection.find(
             new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
             );
             //uses a cursor to search the collection for all values in the BookName field
-            DBCursor cursor3 = collection.find(
+            DBCursor cursDateDue = collection.find(
             new BasicDBObject(), new BasicDBObject("DateDue", Boolean.TRUE)
             );
+            //uses a cursor to search the collection for all values in the DateDue field
+            String memNameCombo = (String)evt.getItem();
+            //creates string memNameCombo and sets it equal to the selected item in the memName combo box
+            String date;
+            //creates string date
             
-            String b = (String)evt.getItem();
-            String date = null;
+            while (cursMemName.hasNext()) {
+            //while cursMemName has the next value in the database do this
             
-            while (cursor.hasNext()) {
+                String memNameField = cursMemName.next().get("MemberName").toString();
+                //creates string memNameField and make it equal to the current value in the MemberName field
+                String bookNameField = cursBookName.next().get("BookName").toString();
+                //creates string bookNameField and makes it equal to the current value in the Bookname field
+                date = cursDateDue.next().get("DateDue").toString();
+                //sets date equal to the current value of DueDate field
             
-                String a = cursor.next().get("MemberName").toString();
-                String c = cursor2.next().get("BookName").toString();
-                date = cursor3.next().get("DateDue").toString();
-            
-                if(b.equals(a) && optionSelected == false){
+                if(memNameCombo.equals(memNameField) && optionSelected == false){
+                //if the memNameCombo is equal to the memNameField and optionSelected is false then to this
                     optionSelected = true;
-                    System.out.println("found match");
-                    System.out.println(c);
+                    //set optionSelected to true
                     bookName.removeAllItems();
-                    bookName.addItem(c);
+                    //remove all options from the book name combobox
+                    bookName.addItem(bookNameField);
+                    //add the value of bookNameField to the book name combobox
                     memberName.removeAllItems();
-                    memberName.addItem(b);
+                    //remove all options from the member name combo box
+                    memberName.addItem(memNameCombo);
+                    //add the value of memNameCombo to the member name combo box
                     setMoneyOwed(date);
+                    //call setMoneyOwed passing it date
                         
-                }else if(b.equals(a)){
-                    bookName.addItem(c);
+                }else if(memNameCombo.equals(memNameField)){
+                //otherwise if memNameCombo is equal to memNameField do this
+                    bookName.addItem(bookNameField);
+                    //add the value of bookNameField to the book name combo box
                     setMoneyOwed(date);
+                    //call setMoneyOwed passing it date
                 }
             }
             
@@ -238,39 +253,45 @@ public class ReturnBookPage extends javax.swing.JFrame {
         //Do any operations you need to do when an item is selected.
             optionSelected = true;
 
-            collection = db.getCollection("Orders");
-            //defines the collection to use
-            DBCursor cursor = collection.find(
+            DBCursor cursMemName = collection.find(
             new BasicDBObject(), new BasicDBObject("MemberName", Boolean.TRUE)
             );
-        
-            DBCursor cursor2 = collection.find(
+            //uses a cursor to search the collection for all values in the MemberName field
+            DBCursor cursBookName = collection.find(
             new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
             );
-            //uses a cursor to search the collection for all values in the catagory field
-            DBCursor cursor3 = collection.find(
+            //uses a cursor to search the collection for all values in the BookName field
+            DBCursor cursDateDue = collection.find(
             new BasicDBObject(), new BasicDBObject("DateDue", Boolean.TRUE)
             );
-            String b = (String)evt.getItem();
-            String date = null;
+            //uses a cursor to search the collection for all values in the BookName field
+            String bookNameCombo = (String)evt.getItem();
+            //creates string bookNameCombo and sets it equal to the selected item in the bookName combo box
+            String date;
+            //creates string date
             
             bookName.removeAllItems();
-            bookName.addItem(b);
+            //removes all items from the book name combo box
+            bookName.addItem(bookNameCombo);
+            //adds the value of bookNameCombo to the book name combo box
             
-            while (cursor2.hasNext()) {
-
-                String a = cursor2.next().get("BookName").toString();
-                String c = cursor.next().get("MemberName").toString();
-                date = cursor3.next().get("DateDue").toString();
+            while (cursBookName.hasNext()) {
+            //while cursBookName has the next value in the database do this
+                String bookNameField = cursBookName.next().get("BookName").toString();
+                //creates String bookNameField and makes it equal to the value of the field BookName
+                String memNameField = cursMemName.next().get("MemberName").toString();
+                //creates String memNameField and makes it equal to the value of the field MemeberName
+                date = cursDateDue.next().get("DateDue").toString();
+                //sets date equal to the due date field
             
-                if(a.equals(b)){
-                    System.out.println("found match");
-                    System.out.println(c);
-                
+                if(bookNameField.equals(bookNameCombo)){
+                //if the bookNameField is equal to the bookNameCombo then do
                     memberName.removeAllItems();
-                    memberName.addItem(c);
+                    //Removes all items form the memberName field
+                    memberName.addItem(memNameField );
+                    //adds the value memNameField to the memberName combo box
                     setMoneyOwed(date);
-   
+                    //calls method setMoneyOwed and passes it date
                 }
             }
             
@@ -281,45 +302,76 @@ public class ReturnBookPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         memberName.removeAllItems();
         bookName.removeAllItems();
+        //removes all items from both memberName combo box and bookName combo box
         comboPopulation();
+        //calls comboPopulation method
         
     }//GEN-LAST:event_btnResetMouseClicked
 
     private void comboPopulation(){
         initialised = false;
+        //sets initialised equal to false
         memberName.addItem("Choose a member");
         bookName.addItem("Choose a book");
+        //adds "Choose a member" to memberName combo box and "choose a book" to bookName combo box
         
-        collection = db.getCollection("Members");
+        DBCursor cursMemName = collection.find(
+        new BasicDBObject(), new BasicDBObject("MemberName", Boolean.TRUE)
+         ); 
+        //uses a cursor to search the collection for all values in the MemberName field
         
-        DBCursor cursor = collection.find(
-        new BasicDBObject(), new BasicDBObject("FirstName", Boolean.TRUE)
-         );
-        
-        DBCursor cursor2 = collection.find(
-        new BasicDBObject(), new BasicDBObject("SecondName", Boolean.TRUE)
-         );
-        
-        //uses a cursor to search the collection for all values in the catagory field
-        while (cursor.hasNext()) {
-            String memname = (String) cursor.next().get("FirstName") + " " + cursor2.next().get("SecondName");
-            memberName.addItem(memname);
-
-    }
-
-        collection = db.getCollection("Books");
-        //defines the collection to use
-        
-        cursor = collection.find(
+        DBCursor cursBookName = collection.find(
         new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
          );
-        //uses a cursor to search the collection for all values in the catagory field
-        while (cursor.hasNext()) {
-            bookName.addItem((String) cursor.next().get("BookName"));
-        }
-        //uses the cursor to populate the combo box bookName
+        //uses a cursor to search the collection for all values in the BookName field
+        
+        collection = db.getCollection("Invoices");
+        //defines the collection to use
+        DBCursor cursPaid = collection.find(
+        new BasicDBObject(), new BasicDBObject("PaidDate", Boolean.TRUE)
+         );
+        //uses a cursor to search the collection for all values in the PaidDate field
+        
+        ArrayList<String> memList = new ArrayList<String>();
+        //creates a string array list called memList
+        while (cursMemName.hasNext()) {
+            String paid = (String) cursPaid.next().get("PaidDate");
+            //creates String paid and makes it equal to the field PaidDate
+            String memNameField = (String) cursMemName.next().get("MemberName");
+            //creates String memNameField and makes it equal to the field MemberName
+            String bookNameField = (String) cursBookName.next().get("BookName");
+            //creates String bookNameField and makes it equal to the field BookName
+            
+            if(paid.equals("")){
+            //if paid is empty then
+            Boolean moreThanOne = false;
+            //make boolean moreThanOne equal to false
+            for(int i=0; i < memList.size(); i++){
+            //loop that creates and int i then if i is less than the size of the
+            //arraylist then it runs the code and adds 1 to i
+                if(memList.get(i).equals(memNameField)){
+                    //if memList position i is equal to the memName Field then run this
+                    moreThanOne = true;
+                    //make moreThanOne equal to true
+                }
+            }
+            if(moreThanOne == false){
+                //if moreThanOne is false then
+                memberName.addItem(memNameField);
+                //add memNameField to the memberName combo box
+                memList.add(memNameField);
+                //add memNameField to the memList arrayList
+            }
+            
+            bookName.addItem(bookNameField);
+            //add bookNameField to bookName combo Box
+
         initialised = true;
+        //set initialised equal to true
         optionSelected = false;
+        //set optionSelected equal to false
+            }
+        }
     }
     
     public static void main(String args[]) {

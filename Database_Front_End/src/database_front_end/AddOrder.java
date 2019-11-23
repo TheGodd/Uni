@@ -63,7 +63,7 @@ public class AddOrder {
         
         json = "{'OrderID' : " + "'" + ID + "'" + ","
                 + "'ReceivedDate' : " + "'" + dateTaken + "'" + ","
-                + "'PaidDate' : " + "' '" + "}";
+                + "'PaidDate' : " + "''" + "}";
         //makes string called json and makes it equal to json format insertion
         
         dbOBject = (DBObject)JSON.parse(json);
