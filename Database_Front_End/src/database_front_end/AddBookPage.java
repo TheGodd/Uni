@@ -27,25 +27,10 @@ public class AddBookPage extends javax.swing.JFrame {
      * Creates new form AddBookPage
      */
     public AddBookPage() {
-        
-        
         initComponents();
-        //calls the class that builds the form
-        MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
-        //defines the ipaddress and port to use to connect
-        DB db = mongoClient.getDB("Library");
-        //defines the database to use
-        DBCollection collection = db.getCollection("Catagories");
-        //defines the collection to use
+        comboPopulation();
+        //calls the class that builds the form then calls the class that adds items to the combo boxes
         
-        DBCursor cursor = collection.find(
-        new BasicDBObject(), new BasicDBObject("Catagory", Boolean.TRUE)
-         );
-        //uses a cursor to search the collection for all values in the catagory field
-        while (cursor.hasNext()) {
-            catagories.addItem((String) cursor.next().get("Catagory"));
-        }
-        //while loop that runs until it has all the values in the catagory field
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -139,7 +124,30 @@ public class AddBookPage extends javax.swing.JFrame {
         
         //when the add button is pushed create three strings and use them to pass the values of the textboxes and combobox to addbook class
     }//GEN-LAST:event_btnAddBookMouseClicked
-
+    
+    private void comboPopulation(){
+        try{
+        MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
+        //defines the ipaddress and port to use to connect
+        DB db = mongoClient.getDB("Library");
+        //defines the database to use
+        DBCollection collection = db.getCollection("Catagories");
+        //defines the collection to use
+        
+        DBCursor cursor = collection.find(
+        new BasicDBObject(), new BasicDBObject("Catagory", Boolean.TRUE)
+         );
+        //uses a cursor to search the collection for all values in the catagory field
+        while (cursor.hasNext()) {
+            catagories.addItem((String) cursor.next().get("Catagory"));
+        }
+        //while loop that runs until it has all the values in the catagory field
+        }
+        catch(Exception e){
+        System.out.println(e);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */

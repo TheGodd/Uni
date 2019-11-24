@@ -77,11 +77,16 @@ public class AddCatagoryPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddCatagoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddCatagoryMouseClicked
+        try{
         String cat = catagory.getText();
-        
+
         AddCatagory addcatagory = new AddCatagory();
         addcatagory.addCatagory(cat);
         //when the add button is pushed create three strings and use them to pass the values of the textboxes to addcatagory class
+        }
+        catch(Exception e){
+        System.out.println(e);
+        }
     }//GEN-LAST:event_btnAddCatagoryMouseClicked
 
     /**

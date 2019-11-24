@@ -17,6 +17,7 @@ import com.mongodb.MongoClient;
  */
 public class ReturnBook {
     public void returnBook(String selectedBookName, String selectedMemberName, String returnDate, int diff){
+        try{
             MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
             //defines the ipaddress and port to use to connect
             DB db = mongoClient.getDB("Library");
@@ -80,6 +81,10 @@ public class ReturnBook {
                 }
                 
             }
+            }
+        catch(Exception e){
+        System.out.println(e);
+        }
             
             
     }

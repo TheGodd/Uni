@@ -141,7 +141,7 @@ public class AddMemberPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddMemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMemberMouseClicked
-        
+        try{
         String firstname = firstName.getText();
         String secondname = secondName.getText();
         String addressLine1 = address1.getText();
@@ -152,6 +152,11 @@ public class AddMemberPage extends javax.swing.JFrame {
         AddMember addmember = new AddMember();
         addmember.addMember(firstname, secondname, addressLine1, town, postcode, mememail);
         //when the add button is pushed create three strings and use them to pass the values of the textboxes to addmember class
+        
+        }
+        catch(Exception e){
+        System.out.println(e);
+        }
     }//GEN-LAST:event_btnAddMemberMouseClicked
 
     /**

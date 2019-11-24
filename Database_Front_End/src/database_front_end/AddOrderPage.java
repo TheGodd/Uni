@@ -13,7 +13,6 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
 /**
@@ -25,58 +24,11 @@ public class AddOrderPage extends javax.swing.JFrame {
     /**
      * Creates new form AddOrderPage
      */
-        MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
-        //defines the ipaddress and port to use to connect
-        DB db = mongoClient.getDB("Library");
-        //defines the database to use
-        DBCollection collection = db.getCollection("Catagories");
-        //defines the collection to use
     
     public AddOrderPage() {
         initComponents();
-        //calls the class that builds the form
-        
-        
-        DBCursor cursor = collection.find(
-        new BasicDBObject(), new BasicDBObject("Catagory", Boolean.TRUE)
-         );
-        //uses a cursor to search the collection for all values in the catagory field
-        while (cursor.hasNext()) {
-            catagories.addItem((String) cursor.next().get("Catagory"));
-        }
-        //while loop that runs until it has all the values in the catagory field
-        collection = db.getCollection("Books");
-        //defines the collection to use
-        
-        cursor = collection.find(
-        new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
-         );
-        //uses a cursor to search the collection for all values in the catagory field
-        while (cursor.hasNext()) {
-            bookName.addItem((String) cursor.next().get("BookName"));
-        }
-        cursor = collection.find(
-        new BasicDBObject(), new BasicDBObject("Author", Boolean.TRUE)
-         );
-        //uses a cursor to search the collection for all values in the catagory field
-        while (cursor.hasNext()) {
-            author.addItem((String) cursor.next().get("Author"));
-        }
-        
-        collection = db.getCollection("Members");
-        //defines the collection to use
-        
-        cursor = collection.find(
-        new BasicDBObject(), new BasicDBObject("FirstName", Boolean.TRUE)
-         );
-        DBCursor cursor2 = collection.find(
-        new BasicDBObject(), new BasicDBObject("SecondName", Boolean.TRUE)
-         );
-        
-        //uses a cursor to search the collection for all values in the catagory field
-        while (cursor.hasNext()) {
-            memberName.addItem((String) cursor.next().get("FirstName") + " " + cursor2.next().get("SecondName"));
-    }
+        comboPopulation();
+        //calls the class that builds the form and then calls the class that populates the combo boxes
     }
 
     @SuppressWarnings("unchecked")
@@ -219,6 +171,7 @@ public class AddOrderPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddOrderMouseClicked
+        try{
         String bookname =  (String) bookName.getSelectedItem();
         String auth =  (String) author.getSelectedItem();
         String cat =  (String) catagories.getSelectedItem();
@@ -229,8 +182,69 @@ public class AddOrderPage extends javax.swing.JFrame {
         AddOrder addorder = new AddOrder();
         addorder.addOrder(bookname, auth, cat, memname, datetaken, datedue);
         //when the add button is pushed create three strings and use them to pass the values of the textboxes to addmember class
+        }
+        catch(Exception e){
+        System.out.println(e);
+        }
     }//GEN-LAST:event_btnAddOrderMouseClicked
 
+    private void comboPopulation(){
+        try{
+        MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
+        //defines the ipaddress and port to use to connect
+        DB db = mongoClient.getDB("Library");
+        //defines the database to use
+        DBCollection collection = db.getCollection("Catagories");
+        //defines the collection to use
+        
+        DBCursor cursor = collection.find(
+        new BasicDBObject(), new BasicDBObject("Catagory", Boolean.TRUE)
+         );
+        //uses a cursor to search the collection for all values in the catagory field
+        while (cursor.hasNext()) {
+            catagories.addItem((String) cursor.next().get("Catagory"));
+        }
+        //while loop that runs until it has all the values in the catagory field
+        
+        collection = db.getCollection("Books");
+        //defines the collection to use
+        
+        cursor = collection.find(
+        new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
+         );
+        //uses a cursor to search the collection for all values in the catagory field
+        
+        while (cursor.hasNext()) {
+            bookName.addItem((String) cursor.next().get("BookName"));
+        }
+        cursor = collection.find(
+        new BasicDBObject(), new BasicDBObject("Author", Boolean.TRUE)
+         );
+        //uses a cursor to search the collection for all values in the catagory field
+        
+        while (cursor.hasNext()) {
+            author.addItem((String) cursor.next().get("Author"));
+        }
+        
+        collection = db.getCollection("Members");
+        //defines the collection to use
+        
+        cursor = collection.find(
+        new BasicDBObject(), new BasicDBObject("FirstName", Boolean.TRUE)
+         );
+        DBCursor cursor2 = collection.find(
+        new BasicDBObject(), new BasicDBObject("SecondName", Boolean.TRUE)
+         );
+        
+        //uses a cursor to search the collection for all values in the catagory field
+        while (cursor.hasNext()) {
+            memberName.addItem((String) cursor.next().get("FirstName") + " " + cursor2.next().get("SecondName"));
+    }
+        }
+        catch(Exception e){
+        System.out.println(e);
+        }
+    }
     /**
      * @param args the command line arguments
      */

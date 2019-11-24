@@ -32,13 +32,9 @@ public class AddBook {
         DBObject dbOBject = (DBObject)JSON.parse(json);
         collection.insert(dbOBject);
         //turns string json into a database object and inserts it as a document in collection
-        
-        
-        System.out.println("connected to database");
         }
         catch(Exception e){
         System.out.println(e);
         }
-        System.out.println("Server is ready");
     }
 }

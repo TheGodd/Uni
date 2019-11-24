@@ -43,6 +43,7 @@ public class ReturnBookPage extends javax.swing.JFrame {
         //calls the class that creates the form then the one that populates the comboboxes
     }
     public void setMoneyOwed(String date){
+        try{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         //creates a format for the date to be layed out
         
@@ -56,6 +57,10 @@ public class ReturnBookPage extends javax.swing.JFrame {
         
         lblMoneyOwed.setText("You Owe: £" + diff);
         //sets the label lblMoneyOwed to "you owe: diff"
+        }
+        catch(Exception e){
+        System.out.println(e);
+        }
     }
 
     /**
@@ -171,7 +176,8 @@ public class ReturnBookPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnBookMouseClicked
-        // TODO add your handling code here:
+
+        try{
         String selectedBookName = (String) bookName.getSelectedItem();
         //creates and sets the string selectedBookName to the option selected in the bookName combo box
         String selectedMemberName = (String) memberName.getSelectedItem();
@@ -182,12 +188,15 @@ public class ReturnBookPage extends javax.swing.JFrame {
         ReturnBook returnbook = new ReturnBook();
         returnbook.returnBook(selectedBookName, selectedMemberName, returnDate, diff);
         //calls the recurn book method in the return book class passing through selectedBookName, selectedMemberName, returnDate, diff
-
+        }
+        catch(Exception e){
+        System.out.println(e);
+        }
     }//GEN-LAST:event_btnReturnBookMouseClicked
 
     private void memberNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_memberNameItemStateChanged
         // TODO add your handling code here:
-
+        try{
         if (evt.getStateChange() == ItemEvent.SELECTED && optionSelected == false && initialised == true) {
         //Do any operations you need to do when an item is selected.
 
@@ -244,11 +253,16 @@ public class ReturnBookPage extends javax.swing.JFrame {
             
             
         }
+        }
+        catch(Exception e){
+        System.out.println(e);
+        }
         
     }//GEN-LAST:event_memberNameItemStateChanged
 
     private void bookNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bookNameItemStateChanged
 
+        try{
         if (evt.getStateChange() == ItemEvent.SELECTED && initialised == true && optionSelected == false) {
         //Do any operations you need to do when an item is selected.
             optionSelected = true;
@@ -296,6 +310,10 @@ public class ReturnBookPage extends javax.swing.JFrame {
             }
             
         }
+        }
+        catch(Exception e){
+        System.out.println(e);
+        }
     }//GEN-LAST:event_bookNameItemStateChanged
 
     private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
@@ -309,6 +327,7 @@ public class ReturnBookPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetMouseClicked
 
     private void comboPopulation(){
+        try{
         initialised = false;
         //sets initialised equal to false
         memberName.addItem("Choose a member");
@@ -371,6 +390,10 @@ public class ReturnBookPage extends javax.swing.JFrame {
         optionSelected = false;
         //set optionSelected equal to false
             }
+        }
+        }
+        catch(Exception e){
+        System.out.println(e);
         }
     }
     

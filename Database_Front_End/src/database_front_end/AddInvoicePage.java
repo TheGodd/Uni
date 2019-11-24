@@ -103,6 +103,7 @@ public class AddInvoicePage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddInvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddInvoiceMouseClicked
+        try{
         String orderid = orderID.getText();
         String receiveddate = receivedDate.getText();
         String paiddate = paidDate.getText();
@@ -110,6 +111,10 @@ public class AddInvoicePage extends javax.swing.JFrame {
         AddInvoice addinvoice = new AddInvoice();
         addinvoice.addInvoice(orderid, receiveddate, paiddate);
         //when the add button is pushed create three strings and use them to pass the values of the textboxes to addinvoice class
+        }
+        catch(Exception e){
+        System.out.println(e);
+        }
     }//GEN-LAST:event_btnAddInvoiceMouseClicked
 
     /**
