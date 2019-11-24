@@ -190,56 +190,60 @@ public class AddOrderPage extends javax.swing.JFrame {
 
     private void comboPopulation(){
         try{
-        MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
-        //defines the ipaddress and port to use to connect
-        DB db = mongoClient.getDB("Library");
-        //defines the database to use
-        DBCollection collection = db.getCollection("Catagories");
-        //defines the collection to use
+            MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
+            //defines the ipaddress and port to use to connect
+            DB db = mongoClient.getDB("Library");
+            //defines the database to use
+            DBCollection collection = db.getCollection("Catagories");
+            //defines the collection to use
         
-        DBCursor cursor = collection.find(
-        new BasicDBObject(), new BasicDBObject("Catagory", Boolean.TRUE)
-         );
-        //uses a cursor to search the collection for all values in the catagory field
-        while (cursor.hasNext()) {
-            catagories.addItem((String) cursor.next().get("Catagory"));
-        }
-        //while loop that runs until it has all the values in the catagory field
+            DBCursor cursor = collection.find(
+            new BasicDBObject(), new BasicDBObject("Catagory", Boolean.TRUE)
+            );
+            //uses a cursor to search the collection for all values in the catagory field
+            while (cursor.hasNext()) {
+                catagories.addItem((String) cursor.next().get("Catagory"));
+            }
+            //while loop that runs until it has all the values in the catagory field, used to populate Catagory combo
         
-        collection = db.getCollection("Books");
-        //defines the collection to use
+            collection = db.getCollection("Books");
+            //defines the collection to use
         
-        cursor = collection.find(
-        new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
-         );
-        //uses a cursor to search the collection for all values in the catagory field
+            cursor = collection.find(
+            new BasicDBObject(), new BasicDBObject("BookName", Boolean.TRUE)
+            );
+            //uses a cursor to search the collection for all values in the BookName field
         
-        while (cursor.hasNext()) {
-            bookName.addItem((String) cursor.next().get("BookName"));
-        }
-        cursor = collection.find(
-        new BasicDBObject(), new BasicDBObject("Author", Boolean.TRUE)
-         );
-        //uses a cursor to search the collection for all values in the catagory field
+            while (cursor.hasNext()) {
+                bookName.addItem((String) cursor.next().get("BookName"));
+            }
+            //while loop that runs until it has all the values in the BookName field, used to populate bookName combo
+            cursor = collection.find(
+            new BasicDBObject(), new BasicDBObject("Author", Boolean.TRUE)
+            );
+            //uses a cursor to search the collection for all values in the Author field
         
-        while (cursor.hasNext()) {
-            author.addItem((String) cursor.next().get("Author"));
-        }
+            while (cursor.hasNext()) {
+                author.addItem((String) cursor.next().get("Author"));
+            }
+            //while loop that runs until it has all the values in the Author field, used to populate author combo
         
-        collection = db.getCollection("Members");
-        //defines the collection to use
+            collection = db.getCollection("Members");
+            //defines the collection to use
         
-        cursor = collection.find(
-        new BasicDBObject(), new BasicDBObject("FirstName", Boolean.TRUE)
-         );
-        DBCursor cursor2 = collection.find(
-        new BasicDBObject(), new BasicDBObject("SecondName", Boolean.TRUE)
-         );
-        
-        //uses a cursor to search the collection for all values in the catagory field
-        while (cursor.hasNext()) {
-            memberName.addItem((String) cursor.next().get("FirstName") + " " + cursor2.next().get("SecondName"));
-    }
+            cursor = collection.find(
+            new BasicDBObject(), new BasicDBObject("FirstName", Boolean.TRUE)
+            );
+            //uses a cursor to search the collection for all values in the FirstName field
+            
+            DBCursor cursor2 = collection.find(
+            new BasicDBObject(), new BasicDBObject("SecondName", Boolean.TRUE)
+            );
+            //uses a cursor to search the collection for all values in the SecondName field
+            while (cursor.hasNext()) {
+                memberName.addItem((String) cursor.next().get("FirstName") + " " + cursor2.next().get("SecondName"));
+            }
+            //while loop that runs until it has all the values in the FirstName field, used to populate memberName combo
         }
         catch(Exception e){
         System.out.println(e);

@@ -28,6 +28,7 @@ public class OptionsPage extends javax.swing.JFrame {
         btnAddCatagory = new javax.swing.JButton();
         btnAddBook = new javax.swing.JButton();
         btnReturnBook = new javax.swing.JButton();
+        btnFineHistoryReport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,6 +76,13 @@ public class OptionsPage extends javax.swing.JFrame {
             }
         });
 
+        btnFineHistoryReport.setText("Fine History Report");
+        btnFineHistoryReport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFineHistoryReportMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,14 +90,17 @@ public class OptionsPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAddMembers)
-                    .addComponent(btnAddOrder)
-                    .addComponent(btnAddBook))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnReturnBook)
-                    .addComponent(btnAddCatagory)
-                    .addComponent(addInvoice))
+                    .addComponent(btnFineHistoryReport)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAddMembers)
+                            .addComponent(btnAddOrder)
+                            .addComponent(btnAddBook))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnReturnBook)
+                            .addComponent(btnAddCatagory)
+                            .addComponent(addInvoice))))
                 .addContainerGap(117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -107,7 +118,9 @@ public class OptionsPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddBook)
                     .addComponent(btnReturnBook))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFineHistoryReport)
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         pack();
@@ -144,11 +157,16 @@ public class OptionsPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddBookMouseClicked
 
     private void btnReturnBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnBookMouseClicked
-        // TODO add your handling code here:
         ReturnBookPage changeForm = new ReturnBookPage();
         changeForm.setVisible(true);
         //shows the return book page when the button is pressed
     }//GEN-LAST:event_btnReturnBookMouseClicked
+
+    private void btnFineHistoryReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFineHistoryReportMouseClicked
+        FineHistoryReportPage changeForm = new FineHistoryReportPage();
+        changeForm.setVisible(true);
+        //shows the fine history report page when the button is pressed
+    }//GEN-LAST:event_btnFineHistoryReportMouseClicked
 
     
     
@@ -193,6 +211,7 @@ public class OptionsPage extends javax.swing.JFrame {
     private javax.swing.JButton btnAddCatagory;
     private javax.swing.JButton btnAddMembers;
     private javax.swing.JButton btnAddOrder;
+    private javax.swing.JButton btnFineHistoryReport;
     private javax.swing.JButton btnReturnBook;
     // End of variables declaration//GEN-END:variables
 }
