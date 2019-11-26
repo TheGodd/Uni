@@ -46,7 +46,7 @@ public class ReturnBookPage extends javax.swing.JFrame {
         try{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         //creates a format for the date to be layed out
-        
+
         LocalDate today = LocalDate.now();
         LocalDate dateDue = LocalDate.parse(date, formatter);
         //creates two localdate variables, sets today to the current date 
@@ -56,7 +56,7 @@ public class ReturnBookPage extends javax.swing.JFrame {
         //sets diff to the difference between today and the date due
         
         lblMoneyOwed.setText("You Owe: £" + diff);
-        //sets the label lblMoneyOwed to "you owe: diff"
+        
         }
         catch(Exception e){
         System.out.println(e);
@@ -255,7 +255,7 @@ public class ReturnBookPage extends javax.swing.JFrame {
         }
         }
         catch(Exception e){
-        System.out.println(e);
+            System.out.println(e);
         }
         
     }//GEN-LAST:event_memberNameItemStateChanged
@@ -391,6 +391,7 @@ public class ReturnBookPage extends javax.swing.JFrame {
         //set optionSelected equal to false
             }
         }
+        collection = db.getCollection("Orders");
         }
         catch(Exception e){
         System.out.println(e);

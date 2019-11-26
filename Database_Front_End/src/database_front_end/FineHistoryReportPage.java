@@ -10,6 +10,9 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,6 +23,7 @@ public class FineHistoryReportPage extends javax.swing.JFrame {
     /**
      * Creates new form FineHistoryReportPage
      */
+    
     public FineHistoryReportPage() {
         initComponents();
         comboPopulation();
@@ -83,11 +87,16 @@ public class FineHistoryReportPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerateReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerateReportMouseClicked
+
         String month = (String)months.getSelectedItem();
         String memName = (String)memberName.getSelectedItem();
         
         FineHistoryReport generate = new FineHistoryReport();
-        generate.fineHistoryReport(memName, month);
+        try {
+            generate.fineHistoryReport(memName, month);
+        } catch (IOException ex) {
+            Logger.getLogger(FineHistoryReportPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnGenerateReportMouseClicked
 
     /**

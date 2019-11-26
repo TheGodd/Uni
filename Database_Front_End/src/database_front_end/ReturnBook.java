@@ -75,9 +75,9 @@ public class ReturnBook {
                     collection.update(searchQuery, newDocument);
                     //change the found document to have a PaidDate of returnDate
                     
-                    newDocument.append("$set", new BasicDBObject().append("AmmountPaid", diff));
+                    newDocument.append("$set", new BasicDBObject().append("AmountPaid", diff));
                     collection.update(searchQuery, newDocument);
-                    //change the found document to have the AmmountPaid of diff
+                    //change the found document to have the AmountPaid of diff
                 }
                 
             }
