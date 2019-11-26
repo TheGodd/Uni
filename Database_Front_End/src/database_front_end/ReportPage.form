@@ -23,18 +23,14 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="memberName" pref="248" max="32767" attributes="0"/>
-                          <Component id="months" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
-                      <Component id="btnGenerateReport" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnGenerateLoanHistoryReport" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnGenerateFineHistoryReport" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="memberName" pref="248" max="32767" attributes="0"/>
+                      <Component id="months" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="84" max="32767" attributes="0"/>
@@ -48,9 +44,11 @@
               <Component id="memberName" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="months" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-              <Component id="btnGenerateReport" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="98" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+              <Component id="btnGenerateFineHistoryReport" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="btnGenerateLoanHistoryReport" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="60" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -92,12 +90,21 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="btnGenerateReport">
+    <Component class="javax.swing.JButton" name="btnGenerateFineHistoryReport">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Generate Report"/>
+        <Property name="text" type="java.lang.String" value="Generate Fine History Report"/>
+        <Property name="actionCommand" type="java.lang.String" value="Generate Fine History Report"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnGenerateReportMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnGenerateFineHistoryReportMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnGenerateLoanHistoryReport">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Generate Loan History Report"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnGenerateLoanHistoryReportMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>

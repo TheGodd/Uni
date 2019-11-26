@@ -18,13 +18,13 @@ import java.util.logging.Logger;
  *
  * @author golde
  */
-public class FineHistoryReportPage extends javax.swing.JFrame {
+public class ReportPage extends javax.swing.JFrame {
 
     /**
      * Creates new form FineHistoryReportPage
      */
     
-    public FineHistoryReportPage() {
+    public ReportPage() {
         initComponents();
         comboPopulation();
     }
@@ -40,7 +40,8 @@ public class FineHistoryReportPage extends javax.swing.JFrame {
 
         memberName = new javax.swing.JComboBox<>();
         months = new javax.swing.JComboBox<>();
-        btnGenerateReport = new javax.swing.JButton();
+        btnGenerateFineHistoryReport = new javax.swing.JButton();
+        btnGenerateLoanHistoryReport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,10 +49,18 @@ public class FineHistoryReportPage extends javax.swing.JFrame {
 
         months.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Please Select A Month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
 
-        btnGenerateReport.setText("Generate Report");
-        btnGenerateReport.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnGenerateFineHistoryReport.setText("Generate Fine History Report");
+        btnGenerateFineHistoryReport.setActionCommand("Generate Fine History Report");
+        btnGenerateFineHistoryReport.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGenerateReportMouseClicked(evt);
+                btnGenerateFineHistoryReportMouseClicked(evt);
+            }
+        });
+
+        btnGenerateLoanHistoryReport.setText("Generate Loan History Report");
+        btnGenerateLoanHistoryReport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGenerateLoanHistoryReportMouseClicked(evt);
             }
         });
 
@@ -60,15 +69,13 @@ public class FineHistoryReportPage extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(68, 68, 68)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(memberName, 0, 248, Short.MAX_VALUE)
-                            .addComponent(months, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(btnGenerateReport)))
+                    .addComponent(btnGenerateLoanHistoryReport)
+                    .addComponent(btnGenerateFineHistoryReport)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(memberName, 0, 248, Short.MAX_VALUE)
+                        .addComponent(months, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(84, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -78,15 +85,17 @@ public class FineHistoryReportPage extends javax.swing.JFrame {
                 .addComponent(memberName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(months, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(btnGenerateReport)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addComponent(btnGenerateFineHistoryReport)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnGenerateLoanHistoryReport)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGenerateReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerateReportMouseClicked
+    private void btnGenerateFineHistoryReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerateFineHistoryReportMouseClicked
 
         String month = (String)months.getSelectedItem();
         String memName = (String)memberName.getSelectedItem();
@@ -95,9 +104,21 @@ public class FineHistoryReportPage extends javax.swing.JFrame {
         try {
             generate.fineHistoryReport(memName, month);
         } catch (IOException ex) {
-            Logger.getLogger(FineHistoryReportPage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportPage.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnGenerateReportMouseClicked
+    }//GEN-LAST:event_btnGenerateFineHistoryReportMouseClicked
+
+    private void btnGenerateLoanHistoryReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerateLoanHistoryReportMouseClicked
+        String month = (String)months.getSelectedItem();
+        String memName = (String)memberName.getSelectedItem();
+        
+        LoanHistoryReport generate = new LoanHistoryReport();
+        try {
+            generate.loanHistoryReport(memName, month);
+        } catch (IOException ex) {
+            Logger.getLogger(ReportPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnGenerateLoanHistoryReportMouseClicked
 
     /**
      * @param args the command line arguments
@@ -142,26 +163,28 @@ public class FineHistoryReportPage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FineHistoryReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FineHistoryReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FineHistoryReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FineHistoryReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FineHistoryReportPage().setVisible(true);
+                new ReportPage().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGenerateReport;
+    private javax.swing.JButton btnGenerateFineHistoryReport;
+    private javax.swing.JButton btnGenerateLoanHistoryReport;
     private javax.swing.JComboBox<String> memberName;
     private javax.swing.JComboBox<String> months;
     // End of variables declaration//GEN-END:variables

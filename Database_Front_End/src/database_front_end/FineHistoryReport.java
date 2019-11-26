@@ -30,6 +30,7 @@ public class FineHistoryReport {
         
         try{
         ArrayList<String[]> historyList = new ArrayList<String[]>();
+        //creates an array list called historyList
 
         MongoClient mongoClient = new MongoClient("192.168.1.11", 27017);
         //defines the ipaddress and port to use to connect
@@ -76,7 +77,9 @@ public class FineHistoryReport {
             //creates string bookNameField and makes it equal to the current value in the Bookname field
         
             if(memName.equals(memNameField)){
+            //if the member name selected is equal to the member name in the current field then run this
                 if (amountPaidField.equals("")){
+                //if the amount paid field is empty then do this
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
                 //creates a format for the date to be layed out
 
@@ -88,15 +91,20 @@ public class FineHistoryReport {
                 int diff = dateDueDate.until(today).getDays();
                 //sets diff to the difference between today and the date due
                 total = total + diff;
-                notPaid = "You have not paid : £" + Integer.toString(diff) + " this month";
+                //sets total equal to total plus diff
+                notPaid = "You have not paid : £" + Integer.toString(total) + " this month";
+                //makes notPaid equal to some text plus the number of total
                 
             }if(!amountPaidField.equals("")){
+            //if ammountPaidField is not empty then
                 total = Integer.parseInt(amountPaidField) + total;
+            //make total equal to the ammount paid
             }
             
             String date=dateTakenField;
             date = date.substring(date.indexOf("/") + 1);
             date = date.substring(0, date.indexOf("/"));
+            //creates string date and makes it equal to a substring of dateTakenField that is the number of the month
             
             if(date.equals("1")||date.equals("01")&& month.equals("January")){historyList.add(new String[]{dateTakenField, dateDueField, amountPaidField, bookNameField});}
             if(date.equals("2")||date.equals("02")&& month.equals("February")){historyList.add(new String[]{dateTakenField, dateDueField, amountPaidField, bookNameField});}
@@ -115,17 +123,22 @@ public class FineHistoryReport {
             
         }
         
-        FileWriter writer = new FileWriter("HistoryReport.txt");
+        FileWriter writer = new FileWriter("FineHistoryReport.txt");
         //creates a file writer that generates 
         writer.write(" "+month+System.lineSeparator()+" Date Taken  Date Due  Paid Book Name"+System.lineSeparator());
+        //writes the titles for the file to format it into a report
         for(int i =0; i < historyList.size(); i++){
             String line = Arrays.toString(historyList.get(i));
             writer.write(line + System.lineSeparator());
         }
+        //for loop that writes rows from the arraylist historyList to a text document
         writer.write(System.lineSeparator()+"Your total for "+ month + " is £" + total + " " + notPaid);
+        //writes a line at the end of the report telling them the total that they owe for the month
         writer.close();
-        ProcessBuilder pb = new ProcessBuilder("Notepad.exe", "HistoryReport.txt");
+        //closes the writer saving the file
+        ProcessBuilder pb = new ProcessBuilder("Notepad.exe", "FineHistoryReport.txt");
         pb.start();
+        //opens the generated text file in notepad
         }
         catch(Exception e){
         System.out.println(e);

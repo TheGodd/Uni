@@ -163,7 +163,7 @@ public class OptionsPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReturnBookMouseClicked
 
     private void btnFineHistoryReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFineHistoryReportMouseClicked
-        FineHistoryReportPage changeForm = new FineHistoryReportPage();
+        ReportPage changeForm = new ReportPage();
         changeForm.setVisible(true);
         //shows the fine history report page when the button is pressed
     }//GEN-LAST:event_btnFineHistoryReportMouseClicked
