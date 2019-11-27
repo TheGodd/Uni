@@ -23,12 +23,11 @@ public class OptionsPage extends javax.swing.JFrame {
     private void initComponents() {
 
         btnAddMembers = new javax.swing.JButton();
-        addInvoice = new javax.swing.JButton();
         btnAddOrder = new javax.swing.JButton();
         btnAddCatagory = new javax.swing.JButton();
         btnAddBook = new javax.swing.JButton();
         btnReturnBook = new javax.swing.JButton();
-        btnFineHistoryReport = new javax.swing.JButton();
+        btnReportPage = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -37,13 +36,6 @@ public class OptionsPage extends javax.swing.JFrame {
         btnAddMembers.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddMembersMouseClicked(evt);
-            }
-        });
-
-        addInvoice.setText("Add Invoice");
-        addInvoice.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addInvoiceMouseClicked(evt);
             }
         });
 
@@ -76,10 +68,10 @@ public class OptionsPage extends javax.swing.JFrame {
             }
         });
 
-        btnFineHistoryReport.setText("Fine History Report");
-        btnFineHistoryReport.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnReportPage.setText("Report");
+        btnReportPage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnFineHistoryReportMouseClicked(evt);
+                btnReportPageMouseClicked(evt);
             }
         });
 
@@ -90,17 +82,14 @@ public class OptionsPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnFineHistoryReport)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAddMembers)
-                            .addComponent(btnAddOrder)
-                            .addComponent(btnAddBook))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnReturnBook)
-                            .addComponent(btnAddCatagory)
-                            .addComponent(addInvoice))))
+                    .addComponent(btnAddMembers)
+                    .addComponent(btnAddOrder)
+                    .addComponent(btnReportPage))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnReturnBook)
+                    .addComponent(btnAddCatagory)
+                    .addComponent(btnAddBook))
                 .addContainerGap(117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -109,18 +98,16 @@ public class OptionsPage extends javax.swing.JFrame {
                 .addGap(65, 65, 65)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddMembers)
-                    .addComponent(addInvoice))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddOrder)
                     .addComponent(btnAddCatagory))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddBook)
-                    .addComponent(btnReturnBook))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFineHistoryReport)
-                .addContainerGap(110, Short.MAX_VALUE))
+                    .addComponent(btnAddOrder)
+                    .addComponent(btnAddBook))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReturnBook)
+                    .addComponent(btnReportPage))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
 
         pack();
@@ -131,12 +118,6 @@ public class OptionsPage extends javax.swing.JFrame {
         changeForm.setVisible(true);
         //shows the add member page when the button is pressed
     }//GEN-LAST:event_btnAddMembersMouseClicked
-
-    private void addInvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addInvoiceMouseClicked
-        AddInvoicePage changeForm = new AddInvoicePage();
-        changeForm.setVisible(true);
-        //shows the add invoice page when the button is pressed
-    }//GEN-LAST:event_addInvoiceMouseClicked
 
     private void btnAddOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddOrderMouseClicked
         AddOrderPage changeForm = new AddOrderPage();
@@ -162,11 +143,11 @@ public class OptionsPage extends javax.swing.JFrame {
         //shows the return book page when the button is pressed
     }//GEN-LAST:event_btnReturnBookMouseClicked
 
-    private void btnFineHistoryReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFineHistoryReportMouseClicked
+    private void btnReportPageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportPageMouseClicked
         ReportPage changeForm = new ReportPage();
         changeForm.setVisible(true);
         //shows the fine history report page when the button is pressed
-    }//GEN-LAST:event_btnFineHistoryReportMouseClicked
+    }//GEN-LAST:event_btnReportPageMouseClicked
 
     
     
@@ -206,12 +187,11 @@ public class OptionsPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addInvoice;
     private javax.swing.JButton btnAddBook;
     private javax.swing.JButton btnAddCatagory;
     private javax.swing.JButton btnAddMembers;
     private javax.swing.JButton btnAddOrder;
-    private javax.swing.JButton btnFineHistoryReport;
+    private javax.swing.JButton btnReportPage;
     private javax.swing.JButton btnReturnBook;
     // End of variables declaration//GEN-END:variables
 }

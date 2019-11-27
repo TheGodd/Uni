@@ -26,20 +26,15 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnFineHistoryReport" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnAddMembers" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnAddOrder" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnAddBook" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnReturnBook" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnAddCatagory" min="-2" max="-2" attributes="0"/>
-                          <Component id="addInvoice" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="btnAddMembers" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAddOrder" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnReportPage" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="btnReturnBook" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAddCatagory" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAddBook" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="117" max="32767" attributes="0"/>
           </Group>
@@ -51,21 +46,19 @@
               <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnAddMembers" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="addInvoice" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnAddOrder" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAddCatagory" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnAddOrder" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAddBook" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnReturnBook" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnFineHistoryReport" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="110" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnReturnBook" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnReportPage" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="144" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -78,14 +71,6 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAddMembersMouseClicked"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="addInvoice">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Add Invoice"/>
-      </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="addInvoiceMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAddOrder">
@@ -121,12 +106,12 @@
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnReturnBookMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnFineHistoryReport">
+    <Component class="javax.swing.JButton" name="btnReportPage">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fine History Report"/>
+        <Property name="text" type="java.lang.String" value="Report"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnFineHistoryReportMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnReportPageMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>
